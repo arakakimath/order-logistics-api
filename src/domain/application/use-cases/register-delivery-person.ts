@@ -1,5 +1,6 @@
 import { Either, right } from '@/core/either'
 import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
+import { DeliveryPersonRepository } from '../repositories/delivery-person.repository'
 
 interface RegisterDeliveryPersonUseCaseRequest {
   name: string
@@ -16,7 +17,7 @@ type RegisterDeliveryPersonUseCaseResponse = Either<
 >
 
 export class RegisterDeliveryPersonUseCase {
-  constructor() {}
+  constructor(private deliveryPersonRepository: DeliveryPersonRepository) {}
 
   async execute({
     name,
@@ -30,6 +31,8 @@ export class RegisterDeliveryPersonUseCase {
       password,
       admin,
     })
+
+    await this.deliveryPersonRepository.create(deliveryPerson)
 
     return right({ deliveryPerson })
   }
