@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Last challenge of Rocketseat Node.js course, in which the student has to develop an api, for a ficticious delivery company called FastFeet, to manage related issues",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "Matheus Arakaki",

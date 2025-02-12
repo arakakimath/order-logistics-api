@@ -22,7 +22,7 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
     return this.props.password
   }
 
-  get isAdmin() {
+  isAdmin() {
     return this.props.admin
   }
 
