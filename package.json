@@ -1,0 +1,16 @@
+{
+  "name": "order-logistics-api",
+  "version": "1.0.0",
+  "description": "Last challenge of Rocketseat Node.js course, in which the student has to develop an api, for a ficticious delivery company called FastFeet, to manage related issues",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Matheus Arakaki",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "typescript": "^5.7.3"
+  }
+}
