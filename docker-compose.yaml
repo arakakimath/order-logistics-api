@@ -19,3 +19,6 @@ services:
       - 3333:3333
     depends_on:
       - mongo
+    environment:
+      - DATABASE_URL=mongodb://mongodb:docker@mongo:27017/order-logistics?authSource=admin
+      - PORT=3333
