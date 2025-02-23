@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { HTTPModule } from './http/http.module'
+import { HTTPModule } from './infra/http/http.module'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from './infra/env/env'
 import { EnvService } from './infra/env/env.service'

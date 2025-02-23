@@ -1,5 +1,5 @@
-import { Controller, Get, Post } from "@nestjs/common";
-import { MongooseService } from "src/database/mongoose/mongoose.service";
+import { Controller, Get, Post } from '@nestjs/common'
+import { MongooseService } from 'src/infra/database/mongoose/mongoose.service'
 
 @Controller('/users')
 export class CreateUserController {
