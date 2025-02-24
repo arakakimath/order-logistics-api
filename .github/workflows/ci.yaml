@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - integration-layer
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    name: 'Build and Push'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: 'npm'
+    - run: npm ci
+    - run: npm test
+
+    - name: Generate tag
+      id: generate-tag
+      run: |
+        SHA=$(echo $GITHUB_SHA | head -c7)
+        echo "sha=$SHA" >> $GITHUB_OUTPUT
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_LOGIN_ROLE }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build docker image
+      id: build-docker-image
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        TAG: ${{ steps.generate-tag.outputs.sha }}
+      run: |
+        docker build -t $REGISTRY/arakakimath-ci:$TAG .
+        docker push $REGISTRY/arakakimath-ci:$TAG
+        docker tag $REGISTRY/arakakimath-ci:$TAG $REGISTRY/arakakimath-ci:latest
+        docker push $REGISTRY/arakakimath-ci:latest
+        IMAGE=$(echo $REGISTRY/arakakimath-ci:$TAG)
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
+    
+    - name: Deploy to App Runner
+      id: deploy-app-runner
+      uses: awslabs/amazon-app-runner-deploy@main
+      with:
+        service: arakakimath-api
+        image: ${{ steps.build-docker-image.outputs.image }}
+        access-role-arn: ${{ secrets.AWS_APPRUNNER_ROLE_ARN }}
+        region: ${{ secrets.AWS_REGION }}
+        cpu: 0.5
+        memory: 1
+        port: 3000
+        wait-for-service-stability-seconds: 180
+
+    - name: App Runner check
+      run: echo "App Runner running... ${{ steps.deploy-app-runner.outputs.service-url }}"
