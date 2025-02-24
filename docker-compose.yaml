@@ -10,7 +10,7 @@ services:
       - 27017:27017
     volumes:
       - ./data/mg:/data/db
-      - ./conf:/etc/mongo/
+      - ./conf:/etc/mongo
     command: ["mongod", "--config", "/etc/mongo/mongod.conf"]
 
   order-logistics-api:
