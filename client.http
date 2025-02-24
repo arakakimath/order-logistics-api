@@ -6,8 +6,8 @@ Content-Type: application/json
 
 {
   "name": "Matheus Arakaki",
-  "email": "arakakimath@rocketseat.com",
-  "password": "123456"
+  "cpf": "123.456.789-00",
+  "password": "123457"
 }
 
 ###

@@ -1,23 +1,25 @@
-import { Controller, Get, Post } from '@nestjs/common'
+import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
+import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
+import { Body, Controller, Post, UsePipes } from '@nestjs/common'
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { MongooseService } from 'src/infra/database/mongoose/mongoose.service'
+import { z } from 'zod'
+
+const registerBodySchema = z.object({
+  name: z.string(),
+  cpf: z.string(),
+  password: z.string().min(6),
+  admin: z.boolean().optional().default(false),
+})
+
+type RegisterBodySchema = z.infer<typeof registerBodySchema>
 
 @Controller('/users')
+@ApiTags('Users')
 export class CreateUserController {
   constructor(private mongoose: MongooseService) {}
 
-  @Get()
-  async handle() {
-    const result = await this.mongoose.user.find({ name: 'John Doe' })
-    return JSON.stringify(result)
-  }
-
   @Post()
-  async postHandle() {
-    await this.mongoose.user.create({
-      name: 'John Doe',
-      cpf: '111.111.111-11',
-      password: '123456',
-      admin: true,
-    })
-  }
+  @UsePipes(new ZodValidationPipe(registerBodySchema))
+  async handle(@Body() body: RegisterBodySchema) {}
 }
