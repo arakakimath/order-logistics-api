@@ -1,12 +1,12 @@
-import { InMemoryDeliveryPersonRepository } from 'test/in-memory-repositories/delivery-person.repository'
+import { InMemoryDeliveryPeopleRepository } from 'test/in-memory-repositories/delivery-people.repository'
 import { RegisterDeliveryPersonUseCase } from './register-delivery-person'
 
-let deliveryPersonRepository: InMemoryDeliveryPersonRepository
+let deliveryPersonRepository: InMemoryDeliveryPeopleRepository
 let sut: RegisterDeliveryPersonUseCase
 
 describe('Register Delivery Person', () => {
   beforeEach(() => {
-    deliveryPersonRepository = new InMemoryDeliveryPersonRepository()
+    deliveryPersonRepository = new InMemoryDeliveryPeopleRepository()
 
     sut = new RegisterDeliveryPersonUseCase(deliveryPersonRepository)
   })

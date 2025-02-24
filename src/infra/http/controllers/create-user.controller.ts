@@ -1,3 +1,4 @@
+import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import { Body, Controller, Post, UsePipes } from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
@@ -16,7 +17,10 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 @Controller('/users')
 @ApiTags('Users')
 export class CreateUserController {
-  constructor(private mongoose: MongooseService) {}
+  constructor(
+    private mongoose: MongooseService,
+    private registerUseCase: RegisterDeliveryPersonUseCase,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Register a delivery person.' })
@@ -59,5 +63,13 @@ export class CreateUserController {
     description: 'Delivery person successfully registered.',
   })
   @UsePipes(new ZodValidationPipe(registerBodySchema))
-  async handle(@Body() body: RegisterBodySchema) {}
+  async handle(@Body() body: RegisterBodySchema) {
+    const { name, cpf, password, admin } = body
+    await this.registerUseCase.execute({
+      name,
+      cpf,
+      password,
+      admin,
+    })
+  }
 }

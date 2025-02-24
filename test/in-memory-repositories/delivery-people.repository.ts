@@ -1,8 +1,8 @@
-import { DeliveryPersonRepository } from '@/domain/application/repositories/delivery-person.repository'
+import { DeliveryPeopleRepository } from '@/domain/application/repositories/delivery-people.repository'
 import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
 
-export class InMemoryDeliveryPersonRepository
-  implements DeliveryPersonRepository
+export class InMemoryDeliveryPeopleRepository
+  implements DeliveryPeopleRepository
 {
   public items: DeliveryPerson[] = []
 

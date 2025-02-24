@@ -1,6 +1,7 @@
 import { Either, right } from '@/core/either'
 import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
-import { DeliveryPersonRepository } from '../repositories/delivery-person.repository'
+import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
+import { Injectable } from '@nestjs/common'
 
 interface RegisterDeliveryPersonUseCaseRequest {
   name: string
@@ -16,8 +17,9 @@ type RegisterDeliveryPersonUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class RegisterDeliveryPersonUseCase {
-  constructor(private deliveryPersonRepository: DeliveryPersonRepository) {}
+  constructor(private deliveryPeopleRepository: DeliveryPeopleRepository) {}
 
   async execute({
     name,
@@ -32,7 +34,7 @@ export class RegisterDeliveryPersonUseCase {
       admin,
     })
 
-    await this.deliveryPersonRepository.create(deliveryPerson)
+    await this.deliveryPeopleRepository.create(deliveryPerson)
 
     return right({ deliveryPerson })
   }
