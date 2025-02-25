@@ -1,9 +1,6 @@
 name: Run Tests
 
-on:
-  push:
-    branches:
-    - integration-layer
+on: [pull_request]
 
 jobs:
   run-tests:
