@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/arakakimath/order-logistics-api/compare/v1.1.0...v1.1.1) (2025-02-25)
+
+
+### Bug Fixes
+
+* NODE_ENV production name ([10669bf](https://github.com/arakakimath/order-logistics-api/commit/10669bf3f23162ea168749cce2e4b5933f1083b6))
+
 # [1.1.0](https://github.com/arakakimath/order-logistics-api/compare/v1.0.0...v1.1.0) (2025-02-25)
 
 
