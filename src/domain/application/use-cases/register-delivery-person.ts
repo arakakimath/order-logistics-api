@@ -1,7 +1,8 @@
-import { Either, right } from '@/core/either'
+import { Either, left, right } from '@/core/either'
 import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
 import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
+import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists.error'
 
 interface RegisterDeliveryPersonUseCaseRequest {
   name: string
@@ -11,7 +12,7 @@ interface RegisterDeliveryPersonUseCaseRequest {
 }
 
 type RegisterDeliveryPersonUseCaseResponse = Either<
-  null,
+  DeliveryPersonAlreadyExistsError,
   {
     deliveryPerson: DeliveryPerson
   }
@@ -33,6 +34,13 @@ export class RegisterDeliveryPersonUseCase {
       password,
       admin,
     })
+
+    const deliveryPersonOnDatabase =
+      await this.deliveryPeopleRepository.findByCpf(cpf)
+
+    if (deliveryPersonOnDatabase) {
+      return left(new DeliveryPersonAlreadyExistsError())
+    }
 
     await this.deliveryPeopleRepository.create(deliveryPerson)
 

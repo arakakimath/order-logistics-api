@@ -18,7 +18,8 @@ describe('Register Delivery Person', () => {
       password: '123456',
     })
 
-    expect(result.isRight).toBeTruthy()
+    expect(result.isRight()).toBeTruthy()
+    if (result.isLeft()) throw new Error()
     expect(result.value?.deliveryPerson.id).toBeTruthy()
     expect(result.value?.deliveryPerson.isAdmin()).toBeFalsy()
     expect(deliveryPersonRepository.items[0]).toEqual(

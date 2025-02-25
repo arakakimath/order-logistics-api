@@ -1,8 +1,13 @@
 import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
-import { Body, Controller, Post, UsePipes } from '@nestjs/common'
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Post,
+  UsePipes,
+} from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { MongooseService } from 'src/infra/database/mongoose/mongoose.service'
 import { z } from 'zod'
 
 const registerBodySchema = z.object({
@@ -17,10 +22,7 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 @Controller('/users')
 @ApiTags('Users')
 export class CreateUserController {
-  constructor(
-    private mongoose: MongooseService,
-    private registerUseCase: RegisterDeliveryPersonUseCase,
-  ) {}
+  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Register a delivery person.' })
@@ -65,11 +67,17 @@ export class CreateUserController {
   @UsePipes(new ZodValidationPipe(registerBodySchema))
   async handle(@Body() body: RegisterBodySchema) {
     const { name, cpf, password, admin } = body
-    await this.registerUseCase.execute({
+
+    const result = await this.registerUseCase.execute({
       name,
       cpf,
       password,
       admin,
     })
+
+    if (result.isLeft()) {
+      const error = result.value
+      throw new ConflictException(error.message)
+    }
   }
 }
