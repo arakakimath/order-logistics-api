@@ -1,9 +1,10 @@
-name: CI
+name: CI/CD
 
 on:
   push:
     branches:
     - main
+    - integration-layer
 
 permissions:
   id-token: write
@@ -64,8 +65,6 @@ jobs:
     - name: Deploy to App Runner
       id: deploy-app-runner
       uses: awslabs/amazon-app-runner-deploy@main
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
       with:
         service: arakakimath-api
         image: ${{ steps.build-docker-image.outputs.image }}
@@ -74,6 +73,9 @@ jobs:
         cpu: 0.5
         memory: 1
         port: 3000
+        copy-env-vars: |
+          DATABASE_URL
+          NODE_ENV
         wait-for-service-stability-seconds: 180
 
     - name: App Runner check
