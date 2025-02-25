@@ -20,14 +20,16 @@ export class MongooseDeliveryPeopleRepository
   async findByCpf(cpf: string) {
     const deliveryPerson = await this.mongoose.user.findOne({ cpf })
 
-    return DeliveryPerson.create(
-      {
-        name: deliveryPerson.name,
-        cpf: deliveryPerson.cpf,
-        admin: deliveryPerson.admin,
-        password: deliveryPerson.password,
-      },
-      new UniqueEntityID(deliveryPerson._id),
-    )
+    return deliveryPerson
+      ? DeliveryPerson.create(
+          {
+            name: deliveryPerson.name,
+            cpf: deliveryPerson.cpf,
+            admin: deliveryPerson.admin,
+            password: deliveryPerson.password,
+          },
+          new UniqueEntityID(deliveryPerson._id),
+        )
+      : null
   }
 }
