@@ -64,6 +64,8 @@ jobs:
     - name: Deploy to App Runner
       id: deploy-app-runner
       uses: awslabs/amazon-app-runner-deploy@main
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
       with:
         service: arakakimath-api
         image: ${{ steps.build-docker-image.outputs.image }}
