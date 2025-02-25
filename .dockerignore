@@ -1,0 +1,9 @@
+node_modules
+dist
+Dockerfile
+.git
+.dockerignore
+.gitignore
+client.http
+.eslintignore
+.eslintrc.json
