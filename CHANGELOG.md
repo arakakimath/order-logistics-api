@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/arakakimath/order-logistics-api/compare/v1.0.0...v1.1.0) (2025-02-25)
+
+
+### Bug Fixes
+
+* error handling for duplicate cpf ([5421e77](https://github.com/arakakimath/order-logistics-api/commit/5421e7704297f90b1d6ebc5ad2c1c59d483dcd0a))
+* return null when can't find user with findByCpf method ([e991804](https://github.com/arakakimath/order-logistics-api/commit/e9918041d5f495e5bc6b47daaf532e5ee4eaef54))
+
+
+### Features
+
+* add findByCpf method to delivery people repository ([0d7506c](https://github.com/arakakimath/order-logistics-api/commit/0d7506c2fb159e4eb6df0e919c13e6ce45eaadbb))
+* throw customized error when trying to create delivery person with already used cpf ([2f68459](https://github.com/arakakimath/order-logistics-api/commit/2f6845905842f7aae734fef2c0b4a8a9d4efbafc))
+
 # 1.0.0 (2025-02-25)
 
 
