@@ -3,6 +3,7 @@ import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
 import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
 import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists.error'
+import { HashGenerator } from '../cryptography/hash-generator'
 
 interface RegisterDeliveryPersonUseCaseRequest {
   name: string
@@ -20,7 +21,10 @@ type RegisterDeliveryPersonUseCaseResponse = Either<
 
 @Injectable()
 export class RegisterDeliveryPersonUseCase {
-  constructor(private deliveryPeopleRepository: DeliveryPeopleRepository) {}
+  constructor(
+    private deliveryPeopleRepository: DeliveryPeopleRepository,
+    private hashGenerator: HashGenerator,
+  ) {}
 
   async execute({
     name,
@@ -28,10 +32,12 @@ export class RegisterDeliveryPersonUseCase {
     password,
     admin,
   }: RegisterDeliveryPersonUseCaseRequest): Promise<RegisterDeliveryPersonUseCaseResponse> {
+    const passwordHashed = await this.hashGenerator.hash(password)
+
     const deliveryPerson = DeliveryPerson.create({
       name,
       cpf,
-      password,
+      password: passwordHashed,
       admin,
     })
 
