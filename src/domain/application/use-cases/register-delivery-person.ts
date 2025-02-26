@@ -4,6 +4,8 @@ import { DeliveryPeopleRepository } from '../repositories/delivery-people.reposi
 import { Injectable } from '@nestjs/common'
 import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists.error'
 import { HashGenerator } from '../cryptography/hash-generator'
+import { CpfValidation } from '@/core/validation/cpf.validation'
+import { InvalidCpfError } from './errors/invalid-cpf.error'
 
 interface RegisterDeliveryPersonUseCaseRequest {
   name: string
@@ -13,7 +15,7 @@ interface RegisterDeliveryPersonUseCaseRequest {
 }
 
 type RegisterDeliveryPersonUseCaseResponse = Either<
-  DeliveryPersonAlreadyExistsError,
+  DeliveryPersonAlreadyExistsError | InvalidCpfError,
   {
     deliveryPerson: DeliveryPerson
   }
@@ -33,6 +35,8 @@ export class RegisterDeliveryPersonUseCase {
     admin,
   }: RegisterDeliveryPersonUseCaseRequest): Promise<RegisterDeliveryPersonUseCaseResponse> {
     const passwordHashed = await this.hashGenerator.hash(password)
+
+    if (!CpfValidation.isCpfValid(cpf)) return left(new InvalidCpfError())
 
     const deliveryPerson = DeliveryPerson.create({
       name,

@@ -2,6 +2,8 @@ import { InMemoryDeliveryPeopleRepository } from 'test/in-memory-repositories/de
 import { RegisterDeliveryPersonUseCase } from './register-delivery-person'
 import { FakeHasher } from 'test/cryptography/fake-hasher'
 import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
+import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists.error'
+import { InvalidCpfError } from './errors/invalid-cpf.error'
 
 let deliveryPeopleRepository: InMemoryDeliveryPeopleRepository
 let fakeHasher: FakeHasher
@@ -19,9 +21,11 @@ describe('Register Delivery Person', () => {
   })
 
   it('should be able to register a delivery person', async () => {
+    const { cpf } = makeDeliveryPerson()
+    // console.log(cpf)
     const result = await sut.execute({
       name: 'John Doe',
-      cpf: '000.000.000-01',
+      cpf,
       password: '123456',
     })
 
@@ -39,13 +43,38 @@ describe('Register Delivery Person', () => {
   it(`should be able to hash user's password`, async () => {
     const deliveryPerson = makeDeliveryPerson()
 
-    console.log(deliveryPerson.cpf)
-
     const result = await sut.execute(deliveryPerson)
 
     const hashedPassword = await fakeHasher.hash(deliveryPerson.password)
 
     expect(result.isRight()).toBeTruthy()
     expect(deliveryPeopleRepository.items[0].password).toEqual(hashedPassword)
+  })
+
+  it('should not be able to register an user with an already used cpf', async () => {
+    const deliveryPerson = makeDeliveryPerson()
+
+    deliveryPeopleRepository.items.push(deliveryPerson)
+
+    const result = await sut.execute({
+      name: 'John Doe',
+      cpf: deliveryPerson.cpf,
+      password: '123456',
+    })
+
+    expect(result.isLeft()).toBeTruthy()
+    if (result.isRight()) throw new Error()
+    expect(result.value).toBeInstanceOf(DeliveryPersonAlreadyExistsError)
+  })
+
+  it('should not be able to register an user with an invalid cpf', async () => {
+    const result = await sut.execute({
+      name: 'John Doe',
+      cpf: '111.111.111-12',
+      password: '123456',
+    })
+
+    expect(result.isLeft()).toBeTruthy()
+    expect(result.value).toBeInstanceOf(InvalidCpfError)
   })
 })
