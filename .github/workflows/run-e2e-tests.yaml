@@ -3,7 +3,7 @@ name: Run e2e Tests
 on:
   pull_request:
     branches:
-      - main
+    - main
 
 jobs:
   run-tests:
