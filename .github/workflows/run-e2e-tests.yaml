@@ -1,10 +1,13 @@
-name: Run Tests
+name: Run e2e Tests
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   run-tests:
-      name: Run Tests
+      name: Run e2e Tests
       runs-on: ubuntu-latest
 
       services:
@@ -26,7 +29,6 @@ jobs:
             node-version: 22
             cache: 'npm'
         - run: npm ci
-        - run: npm test
         - run: npm run test:e2e
           env:
             DATABASE_URL: "mongodb://docker:docker@localhost:27017/order-logistics-api?authSource=admin"
