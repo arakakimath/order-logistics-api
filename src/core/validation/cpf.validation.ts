@@ -2,14 +2,7 @@ export class CpfValidation {
   constructor() {}
 
   static getCpfLastDigits(cpf: string): number {
-    // Validate CPF format
-    if (!/^\d{3}\.\d{3}\.\d{3}$/.test(cpf)) {
-      throw new Error(
-        'Invalid CPF format. It must be in the format xxx.xxx.xxx',
-      )
-    }
-
-    // Remove dots and convert to an array of numbers
+    // Remove dots and convert to an array of numbers XXX.XXX.XXX
     const digits = cpf.split('.').join('').split('').map(Number)
 
     // Weight for the CPF check digits calculation
@@ -39,5 +32,18 @@ export class CpfValidation {
 
     // Return the calculated check digits as a number (e.g., 10 and 11)
     return d10 * 10 + d11
+  }
+
+  static isCpfValid(cpf: string): boolean {
+    // Validate CPF format
+    if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
+      throw new Error(
+        'Invalid CPF format. It must be in the format xxx.xxx.xxx',
+      )
+    }
+
+    return (
+      this.getCpfLastDigits(cpf.split('-')[0]) === Number(cpf.split('-')[1])
+    )
   }
 }
