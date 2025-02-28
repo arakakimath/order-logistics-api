@@ -41,11 +41,13 @@ describe('Register Delivery Person', () => {
   })
 
   it(`should be able to hash user's password`, async () => {
-    const deliveryPerson = makeDeliveryPerson()
+    const result = await sut.execute({
+      name: 'John Doe',
+      cpf: '297.621.900-17',
+      password: '123456',
+    })
 
-    const result = await sut.execute(deliveryPerson)
-
-    const hashedPassword = await fakeHasher.hash(deliveryPerson.password)
+    const hashedPassword = await fakeHasher.hash('123456')
 
     expect(result.isRight()).toBeTruthy()
     expect(deliveryPeopleRepository.items[0].password).toEqual(hashedPassword)
