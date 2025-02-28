@@ -15,11 +15,14 @@ export function makeDeliveryPerson(
     CpfValidation.getCpfLastDigits(cpfFirstDigits).toString()
   const cpf = cpfFirstDigits + '-' + cpfLastDigits
 
+  const password = faker.internet.password()
+  const passwordHashed = password + '-hashed'
+
   const deliveryPerson = DeliveryPerson.create(
     {
       name: faker.person.fullName(),
       cpf,
-      password: faker.internet.password(),
+      password: passwordHashed,
       ...override,
     },
     id,
