@@ -19,16 +19,6 @@ describe('Register delivery person (e2e)', () => {
     mongoose = moduleRef.get(MongooseService)
 
     await app.init()
-
-    await mongoose.user.deleteMany({
-      _id: { $regex: '^teste2e' },
-    })
-  })
-
-  afterAll(async () => {
-    await mongoose.user.deleteMany({
-      _id: { $regex: '^teste2e' },
-    })
   })
 
   test('[POST] /users', async () => {
@@ -43,7 +33,7 @@ describe('Register delivery person (e2e)', () => {
     expect(response.statusCode).toBe(201)
 
     const userOnDatabase = await mongoose.user.findOne({
-      _id: { $regex: '^teste2e' },
+      cpf,
     })
 
     expect(userOnDatabase).toEqual(
