@@ -1,4 +1,4 @@
-@baseUrl = https://localhost:3333
+@baseUrl = http://localhost:3333
 
 # @name create_user
 POST {{baseUrl}}/users
@@ -6,12 +6,17 @@ Content-Type: application/json
 
 {
   "name": "Matheus Arakaki",
-  "cpf": "123.456.789-00",
+  "cpf": "073.515.880-07",
   "password": "123457"
 }
 
 ###
 
-# @name get_user
-GET {{baseUrl}}/users
+# @name authenticate
+POST {{baseUrl}}/auth
 Content-Type: application/json
+
+{
+  "cpf": "073.515.880-07",
+  "password": "123457"
+}
