@@ -6,6 +6,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  HttpCode,
   Post,
   UnauthorizedException,
   UsePipes,
@@ -26,6 +27,7 @@ export class AuthenticateController {
   constructor(private authenticateUseCase: AuthenticateUseCase) {}
 
   @Post()
+  @HttpCode(200)
   @ApiOperation({ summary: 'Authenticate a delivery person.' })
   @ApiBody({
     type: Object,
