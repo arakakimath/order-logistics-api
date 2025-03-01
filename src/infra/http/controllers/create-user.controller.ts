@@ -1,6 +1,9 @@
+import { DeliveryPersonAlreadyExistsError } from '@/domain/application/use-cases/errors/delivery-person-already-exists.error'
+import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
 import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
+  BadRequestException,
   Body,
   ConflictException,
   Controller,
@@ -45,6 +48,10 @@ export class CreateUserController {
           minimum: 6,
           description: 'Delivery person password.',
         },
+        admin: {
+          type: 'boolean',
+          description: 'Delivery person role.',
+        },
       },
     },
     examples: {
@@ -64,6 +71,14 @@ export class CreateUserController {
     status: 201,
     description: 'Delivery person successfully registered.',
   })
+  @ApiResponse({
+    status: 409,
+    description: 'Delivery person already exists.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'CPF is invalid',
+  })
   @UsePipes(new ZodValidationPipe(registerBodySchema))
   async handle(@Body() body: RegisterBodySchema) {
     const { name, cpf, password, admin } = body
@@ -77,7 +92,17 @@ export class CreateUserController {
 
     if (result.isLeft()) {
       const error = result.value
-      throw new ConflictException(error.message)
+
+      switch (error.constructor) {
+        case DeliveryPersonAlreadyExistsError:
+          throw new ConflictException(error.message)
+
+        case InvalidCpfError:
+          throw new BadRequestException(error.message)
+
+        default:
+          throw new BadRequestException(error.message)
+      }
     }
   }
 }

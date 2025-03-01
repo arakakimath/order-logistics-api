@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config'
 import { envSchema } from './infra/env/env'
 import { EnvService } from './infra/env/env.service'
 import { EnvModule } from './infra/env/env.module'
+import { AuthModule } from './infra/auth/auth.module'
+import { CryptoModule } from './infra/cryptography/crypto.module'
 
 @Module({
   imports: [
@@ -20,10 +22,16 @@ import { EnvModule } from './infra/env/env.module'
       },
     }),
     ConfigModule.forRoot({
-      validate: (env) => envSchema.parse(env),
+      validate: (env) => {
+        if (process.env.NODE_ENV !== 'test') {
+          return envSchema.parse(env)
+        }
+      },
       isGlobal: true,
     }),
     HTTPModule,
+    AuthModule,
+    CryptoModule,
   ],
   providers: [EnvService],
 })

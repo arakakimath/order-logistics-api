@@ -1,0 +1,24 @@
+name: Run e2e Tests
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  run-tests:
+      name: Run e2e Tests
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Setup node
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+            cache: 'npm'
+        - run: npm ci
+        - run: npm run test:e2e
+          env:
+            NODE_ENV: "test"

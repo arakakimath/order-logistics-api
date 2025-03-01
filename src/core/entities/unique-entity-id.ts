@@ -13,8 +13,6 @@ export class UniqueEntityID {
 
   constructor(value?: string) {
     this.value = value ?? randomUUID()
-
-    if (process.env?.NODE_ENV === 'test') this.value = 'teste2e' + this.value
   }
 
   public equals(id: UniqueEntityID) {
