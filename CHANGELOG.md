@@ -1,3 +1,35 @@
+# [1.2.0](https://github.com/arakakimath/order-logistics-api/compare/v1.1.1...v1.2.0) (2025-03-01)
+
+
+### Bug Fixes
+
+* add public/private key for test environments ([2e7adb3](https://github.com/arakakimath/order-logistics-api/commit/2e7adb37acb277a3a69ff1c39e1ebd5ef6c95478))
+* fake implement hasher n encrypter interfaces at infra to start nest application ([8685b6f](https://github.com/arakakimath/order-logistics-api/commit/8685b6fb3afbbdd5b42f944cea3e503f99bf4d70))
+* flag jwt encrypter as injectable for nest issues ([b38bbeb](https://github.com/arakakimath/order-logistics-api/commit/b38bbeb7f5c494d29fb411b04b63ed16481f567a))
+* http code for authentication controller ([e1c5504](https://github.com/arakakimath/order-logistics-api/commit/e1c5504424d21eb61dd50c9ff50c162f01d1554d))
+* return from getLastDigits as string ([5d3eada](https://github.com/arakakimath/order-logistics-api/commit/5d3eada8f2f9eb2d2b97c4a0fee60edccb8ff670))
+* skip main zod validation in test environments ([a9e01d7](https://github.com/arakakimath/order-logistics-api/commit/a9e01d7a972d83484bb7d3fbed392ada0faa1f70))
+* throw bad request exception when cpf is invalid ([3630402](https://github.com/arakakimath/order-logistics-api/commit/3630402d21844d700a4ca78a387c98ad0ee6fd87))
+
+
+### Features
+
+* add cpf validation to register use-case ([efb3f78](https://github.com/arakakimath/order-logistics-api/commit/efb3f784e9d135d72c9795b099cd1ac2f176fed0))
+* authenticate use-case and wrong-credentials-error ([ca18425](https://github.com/arakakimath/order-logistics-api/commit/ca18425d5f2fa6b56d48d6c22a9800acc35ba6d4))
+* authenticate-controller ([1f9f486](https://github.com/arakakimath/order-logistics-api/commit/1f9f486cb0b2eb09d301cef0bb987e60ca7cce10))
+* bcryptjs for hash generator and comparer interfaces ([6f08dfe](https://github.com/arakakimath/order-logistics-api/commit/6f08dfeed2010fb0292d7b25f256ee764aea0503))
+* cpf validation ([6ccc91e](https://github.com/arakakimath/order-logistics-api/commit/6ccc91eaac95614beb1c20fef8b450d5f4431eca))
+* cpf validation get last digits ([372811a](https://github.com/arakakimath/order-logistics-api/commit/372811a4850120706d536eb2de5aac2d07d59b7d))
+* delivery person factory ([bed37d2](https://github.com/arakakimath/order-logistics-api/commit/bed37d23c5e95749705576452eecce31cce4f3ab))
+* encrypter interface ([61df112](https://github.com/arakakimath/order-logistics-api/commit/61df112313ceb303c6cc6bd45d51456ca3f5a359))
+* generate token and validating, raw authentication controller ([01e6530](https://github.com/arakakimath/order-logistics-api/commit/01e65304d85e9e140f497d35919025150469bc29))
+* hash comparer and hash generator interfaces ([d53705f](https://github.com/arakakimath/order-logistics-api/commit/d53705fcae274d6706298d817d5ac745db0f64b9))
+* hash password at register delivery person use-case ([dc6f5df](https://github.com/arakakimath/order-logistics-api/commit/dc6f5dfcef38d619185700b7234e3f306e3eaa99))
+* implementation of fake hash comparer and generator for unit tests ([22da01e](https://github.com/arakakimath/order-logistics-api/commit/22da01edae4daad1c2c4b386e77f952628b26323))
+* jwt authentication with ES256 algorithm setup ([0770e55](https://github.com/arakakimath/order-logistics-api/commit/0770e55df5d322c36dbb592ca95ce951629b8b2c))
+* jwt ecdsa private key following algorithm es256 ([681aff6](https://github.com/arakakimath/order-logistics-api/commit/681aff6a991aa87ad710e1e929fbee8c563931a4))
+* jwt encrypter; implements Encrypter interface ([ba1fd1e](https://github.com/arakakimath/order-logistics-api/commit/ba1fd1ead4cf57fc6363b8289ab1903cd2606c13))
+
 ## [1.1.1](https://github.com/arakakimath/order-logistics-api/compare/v1.1.0...v1.1.1) (2025-02-25)
 
 
