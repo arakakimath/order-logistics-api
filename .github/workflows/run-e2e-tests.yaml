@@ -10,16 +10,6 @@ jobs:
       name: Run e2e Tests
       runs-on: ubuntu-latest
 
-      services:
-        mongo:
-          image: mongo:latest
-          ports:
-            - 27017:27017
-          env:
-            MONGO_INITDB_ROOT_USERNAME: docker
-            MONGO_INITDB_ROOT_PASSWORD: docker
-            MONGO_INITDB_DATABASE: order-logistics-api
-
       steps:
         - uses: actions/checkout@v4
 
@@ -31,5 +21,4 @@ jobs:
         - run: npm ci
         - run: npm run test:e2e
           env:
-            DATABASE_URL: "mongodb://docker:docker@localhost:27017/order-logistics-api?authSource=admin"
             NODE_ENV: "test"
