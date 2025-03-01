@@ -3,6 +3,7 @@ import { MongooseService } from '@/infra/database/mongoose/mongoose.service'
 import request from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
 
 describe('Register delivery person (e2e)', () => {
   let app: INestApplication
@@ -31,9 +32,11 @@ describe('Register delivery person (e2e)', () => {
   })
 
   test('[POST] /users', async () => {
+    const { cpf } = makeDeliveryPerson()
+
     const response = await request(app.getHttpServer()).post('/users').send({
       name: 'John Doe',
-      cpf: '346.434.343-23',
+      cpf,
       password: '123456',
     })
 
