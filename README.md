@@ -31,7 +31,7 @@ Last challenge of Rocketseat's Node.js course, in which the student has to devel
 - **🍃 MongoDB + Mongoose** – NoSQL database with a schema-based ORM for flexible and scalable data persistence.  
 - **🐳 Docker** – Containerized infrastructure for consistent development and deployment environments.  
 - **📦 Clean Architecture** – Separation of concerns for a modular, testable, and scalable codebase.  
-- **🔐 JWT Authentication (RS256)** – Secure user authentication using private/public key encryption.  
+- **🔐 JWT Authentication (ES256)** – Secure user authentication using private/public key encryption and ECDSA algorithm.  
 - **🛡️ Zod** – Schema-based validation for environment variables, request body, query, and params.  
 - **🧪 Vitest + Supertest** – Unit and integration testing for ensuring API reliability and robustness.  
 - **📝 ESLint** – Code formatting and linting for maintaining consistent code quality.  
@@ -125,7 +125,9 @@ npm run test:e2e
 
 ## 🔗 API Endpoints <a id="api-endpoints"></a> 
 
-(List and describe API routes, including request/response examples)
+### Register delivery person - [POST] /users
+
+### Authenticate login - [POST] /auth
 
 ## 🤝 Contributing <a id="contributing"></a>  
 
