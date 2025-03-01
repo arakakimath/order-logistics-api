@@ -1,6 +1,9 @@
+import { DeliveryPersonAlreadyExistsError } from '@/domain/application/use-cases/errors/delivery-person-already-exists.error'
+import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
 import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
+  BadRequestException,
   Body,
   ConflictException,
   Controller,
@@ -22,7 +25,7 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 @Controller('/users')
 @ApiTags('Users')
 export class CreateUserController {
-  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) {}
+  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) { }
 
   @Post()
   @ApiOperation({ summary: 'Register a delivery person.' })
@@ -77,7 +80,17 @@ export class CreateUserController {
 
     if (result.isLeft()) {
       const error = result.value
-      throw new ConflictException(error.message)
+
+      switch (error.constructor) {
+        case DeliveryPersonAlreadyExistsError:
+          throw new ConflictException(error.message)
+
+        case InvalidCpfError:
+          throw new BadRequestException(error.message)
+
+        default:
+          throw new BadRequestException(error.message)
+      }
     }
   }
 }
