@@ -23,7 +23,9 @@ describe('Register Delivery Person', () => {
   })
 
   it('should be able to authenticate a delivery person', async () => {
-    const deliveryPerson = makeDeliveryPerson({ password: '123456-hashed' })
+    const deliveryPerson = makeDeliveryPerson({
+      password: await fakeHasher.hash('123456'),
+    })
 
     deliveryPeopleRepository.items.push(deliveryPerson)
 
