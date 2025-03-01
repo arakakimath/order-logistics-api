@@ -25,7 +25,7 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 @Controller('/users')
 @ApiTags('Users')
 export class CreateUserController {
-  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) { }
+  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Register a delivery person.' })
@@ -66,6 +66,14 @@ export class CreateUserController {
   @ApiResponse({
     status: 201,
     description: 'Delivery person successfully registered.',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Delivery person already exists.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'CPF is invalid',
   })
   @UsePipes(new ZodValidationPipe(registerBodySchema))
   async handle(@Body() body: RegisterBodySchema) {
