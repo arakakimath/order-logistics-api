@@ -3,7 +3,6 @@ import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { EnvModule } from '../env/env.module'
 import { EnvService } from '../env/env.service'
-import { Env } from '../env/env'
 
 @Module({
   imports: [
@@ -25,4 +24,4 @@ import { Env } from '../env/env'
     }),
   ],
 })
-export class AuthModule { }
+export class AuthModule {}
