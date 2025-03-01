@@ -5,14 +5,24 @@ import { Test } from '@nestjs/testing'
 import { DeliveryPersonFactory } from 'test/factories/make-delivery-person'
 import { hash } from 'bcryptjs'
 import { DatabaseModule } from '@/infra/database/database.module'
+import { ConfigModule } from '@nestjs/config'
+import { envSchema } from '@/infra/env/env'
 
 describe('Authenticate delivery person (e2e)', () => {
   let app: INestApplication
   let deliveryPersonFactory: DeliveryPersonFactory
 
   beforeAll(async () => {
+    console.log('Carregando teste.')
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule, DatabaseModule],
+      imports: [
+        AppModule,
+        DatabaseModule,
+        ConfigModule.forRoot({
+          validate: (env) => envSchema.parse(env),
+          isGlobal: true,
+        }),
+      ],
       providers: [DeliveryPersonFactory],
     }).compile()
 

@@ -4,6 +4,8 @@ import request from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
+import { ConfigModule } from '@nestjs/config'
+import { envSchema } from '@/infra/env/env'
 
 describe('Register delivery person (e2e)', () => {
   let app: INestApplication
@@ -11,7 +13,13 @@ describe('Register delivery person (e2e)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [
+        AppModule,
+        ConfigModule.forRoot({
+          validate: (env) => envSchema.parse(env),
+          isGlobal: true,
+        }),
+      ],
     }).compile()
 
     app = moduleRef.createNestApplication()

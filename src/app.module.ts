@@ -22,7 +22,11 @@ import { CryptoModule } from './infra/cryptography/crypto.module'
       },
     }),
     ConfigModule.forRoot({
-      validate: (env) => envSchema.parse(env),
+      validate: (env) => {
+        if (process.env.NODE_ENV !== 'test') {
+          return envSchema.parse(env)
+        }
+      },
       isGlobal: true,
     }),
     HTTPModule,
