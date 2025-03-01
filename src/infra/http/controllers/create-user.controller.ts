@@ -48,6 +48,10 @@ export class CreateUserController {
           minimum: 6,
           description: 'Delivery person password.',
         },
+        admin: {
+          type: 'boolean',
+          description: 'Delivery person role.',
+        },
       },
     },
     examples: {
