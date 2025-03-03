@@ -13,7 +13,6 @@ describe('Authenticate delivery person (e2e)', () => {
   let deliveryPersonFactory: DeliveryPersonFactory
 
   beforeAll(async () => {
-    console.log('Carregando teste.')
     const moduleRef = await Test.createTestingModule({
       imports: [
         AppModule,

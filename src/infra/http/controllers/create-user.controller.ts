@@ -92,9 +92,9 @@ export class CreateUserController {
     @CurrentUser() user: UserPayload,
   ) {
     const { name, cpf, password, admin } = body
-    const { role: isUserAdmin } = user
+    const { role } = user
 
-    if (!isUserAdmin)
+    if (role !== 'admin')
       throw new UnauthorizedException(
         'User must be admin to create an account.',
       )
