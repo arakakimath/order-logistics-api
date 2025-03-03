@@ -1,6 +1,8 @@
 import { DeliveryPersonAlreadyExistsError } from '@/domain/application/use-cases/errors/delivery-person-already-exists.error'
 import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
 import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
+import { CurrentUser } from '@/infra/auth/current-user.decorator'
+import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
   BadRequestException,
@@ -8,7 +10,7 @@ import {
   ConflictException,
   Controller,
   Post,
-  UsePipes,
+  UnauthorizedException,
 } from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
@@ -19,6 +21,8 @@ const registerBodySchema = z.object({
   password: z.string().min(6),
   admin: z.boolean().optional().default(false),
 })
+
+const bodyValidationPipe = new ZodValidationPipe(registerBodySchema)
 
 type RegisterBodySchema = z.infer<typeof registerBodySchema>
 
@@ -79,9 +83,21 @@ export class CreateUserController {
     status: 400,
     description: 'CPF is invalid',
   })
-  @UsePipes(new ZodValidationPipe(registerBodySchema))
-  async handle(@Body() body: RegisterBodySchema) {
+  @ApiResponse({
+    status: 401,
+    description: 'Request unauthorized.',
+  })
+  async handle(
+    @Body(bodyValidationPipe) body: RegisterBodySchema,
+    @CurrentUser() user: UserPayload,
+  ) {
     const { name, cpf, password, admin } = body
+    const { role: isUserAdmin } = user
+
+    if (!isUserAdmin)
+      throw new UnauthorizedException(
+        'User must be admin to create an account.',
+      )
 
     const result = await this.registerUseCase.execute({
       name,
