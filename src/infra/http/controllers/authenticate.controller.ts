@@ -9,16 +9,19 @@ import {
   Controller,
   HttpCode,
   Post,
+  Res,
   UnauthorizedException,
-  UsePipes,
 } from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Response } from 'express'
 import { z } from 'zod'
 
 const authenticateBodySchema = z.object({
   cpf: z.string(),
   password: z.string().min(6),
 })
+
+const bodyValidationPipe = new ZodValidationPipe(authenticateBodySchema)
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
@@ -68,8 +71,10 @@ export class AuthenticateController {
       },
     },
   })
-  @UsePipes(new ZodValidationPipe(authenticateBodySchema))
-  async handle(@Body() body: AuthenticateBodySchema) {
+  async handle(
+    @Body(bodyValidationPipe) body: AuthenticateBodySchema,
+    @Res() res: Response,
+  ) {
     const { cpf, password } = body
 
     const result = await this.authenticateUseCase.execute({ cpf, password })
@@ -89,10 +94,17 @@ export class AuthenticateController {
       }
     }
 
-    const { accessToken } = result.value
+    const { accessToken, refreshToken } = result.value
 
-    return {
-      access_token: accessToken,
-    }
+    res
+      .cookie('refresh_token', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'prod',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        path: '/',
+      })
+      .send({
+        access_token: accessToken,
+      })
   }
 }
