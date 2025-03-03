@@ -46,7 +46,7 @@ describe('Register delivery person (e2e)', () => {
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),
-      role: deliveryPerson.isAdmin,
+      role: deliveryPerson.isAdmin(),
     })
 
     const { cpf } = makeDeliveryPerson()
