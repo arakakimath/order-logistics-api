@@ -1,6 +1,10 @@
-# Order Logistics API 🚛
+# Order Logistics API 🚛  
 
-Last challenge of Rocketseat's Node.js course, in which the student has to develop an API for a fictitious delivery company called FastFeet, to manage related issues.
+The **Order Logistics API** is the final challenge of Rocketseat's Node.js course, designed for managing deliveries in a fictional company called **FastFeet**. It provides features for **user authentication**, **order tracking**, **delivery management**, and **recipient notifications**, following best practices like **Clean Architecture, DDD, and TDD**.  
+
+The project is built with **NestJS, TypeScript, MongoDB**, and **Docker**, ensuring **scalability and maintainability**. It uses **JWT authentication** with **public/private key encryption**, and the infrastructure is deployed using **AWS AppRunner** with a fully automated **CI/CD pipeline**.  
+
+The API supports **role-based access control**, allowing **admins to manage deliveries** while **delivery personnel handle pickups and drop-offs**. It also includes a robust **testing suite** and **Swagger documentation** for easy integration.
 
 ## 📌 Table of Contents
 
