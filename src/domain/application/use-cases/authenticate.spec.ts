@@ -38,6 +38,7 @@ describe('Register Delivery Person', () => {
     expect(result.value).toEqual(
       expect.objectContaining({
         accessToken: expect.any(String),
+        refreshToken: expect.any(String),
       }),
     )
   })
