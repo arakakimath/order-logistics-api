@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/arakakimath/order-logistics-api/compare/v1.3.0...v1.4.0) (2025-03-03)
+
+
+### Features
+
+* add role to payload and block non-admin users from creating new ones ([419d849](https://github.com/arakakimath/order-logistics-api/commit/419d8499022084526d4e110628ed4900f6ccb329))
+
 # [1.3.0](https://github.com/arakakimath/order-logistics-api/compare/v1.2.0...v1.3.0) (2025-03-03)
 
 
