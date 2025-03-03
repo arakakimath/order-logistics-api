@@ -9,8 +9,9 @@ Authorization: Bearer {{ authToken }}
 
 {
   "name": "Matheus Arakaki",
-  "cpf": "355.793.100-56",
-  "password": "123457"
+  "cpf": "346.873.110-83",
+  "password": "123456",
+  "admin": true
 }
 
 ###
@@ -19,7 +20,8 @@ Authorization: Bearer {{ authToken }}
 POST {{baseUrl}}/auth
 Content-Type: application/json
 
+# authenticate as admin
 {
-  "cpf": "355.793.100-56",
-  "password": "123457"
+  "cpf": "346.873.110-83",
+  "password": "123456"
 }
