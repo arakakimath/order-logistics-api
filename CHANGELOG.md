@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/arakakimath/order-logistics-api/compare/v1.2.0...v1.3.0) (2025-03-03)
+
+
+### Bug Fixes
+
+* set authetication controller as public ([8aab37a](https://github.com/arakakimath/order-logistics-api/commit/8aab37a89a5337ed3430f2a8591a1c2d696f9464))
+
+
+### Features
+
+* current user decorator for extracting info from token payload ([798b966](https://github.com/arakakimath/order-logistics-api/commit/798b9667f9f5b64ce58b7edeeb2fcaa12ea12db9))
+* lock all routes by default and set which ones is public ([74bf9ac](https://github.com/arakakimath/order-logistics-api/commit/74bf9ac7d7e4f248f054e58dd5192ce2297131bf))
+
 # [1.2.0](https://github.com/arakakimath/order-logistics-api/compare/v1.1.1...v1.2.0) (2025-03-01)
 
 
