@@ -1,6 +1,7 @@
 import { AuthenticateUseCase } from '@/domain/application/use-cases/authenticate'
 import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
 import { WrongCredentialsError } from '@/domain/application/use-cases/errors/wrong-credentials.error'
+import { Public } from '@/infra/auth/public'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
   BadRequestException,
@@ -22,6 +23,7 @@ const authenticateBodySchema = z.object({
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
 @Controller('/auth')
+@Public()
 @ApiTags('Users')
 export class AuthenticateController {
   constructor(private authenticateUseCase: AuthenticateUseCase) {}
