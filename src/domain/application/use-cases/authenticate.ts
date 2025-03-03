@@ -16,6 +16,7 @@ type AuthenticateUseCaseResponse = Either<
   InvalidCpfError | WrongCredentialsError,
   {
     accessToken: string
+    refreshToken: string
   }
 >
 
@@ -44,11 +45,14 @@ export class AuthenticateUseCase {
 
     if (!isPasswordValid) return left(new WrongCredentialsError())
 
-    const accessToken = await this.encrypter.encrypt({
+    const payload = {
       sub: deliveryPerson.id.toString(),
       role: deliveryPerson.isAdmin() ? 'admin' : 'regular',
-    })
+    }
 
-    return right({ accessToken })
+    const accessToken = await this.encrypter.encrypt(payload)
+    const refreshToken = await this.encrypter.encrypt(payload, '7d')
+
+    return right({ accessToken, refreshToken })
   }
 }
