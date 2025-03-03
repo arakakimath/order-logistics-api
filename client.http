@@ -1,12 +1,15 @@
 @baseUrl = http://localhost:3333
 
+@authToken = {{ authenticate.response.body.access_token }}
+
 # @name create_user
 POST {{baseUrl}}/users
 Content-Type: application/json
+Authorization: Bearer {{ authToken }}
 
 {
   "name": "Matheus Arakaki",
-  "cpf": "073.515.880-07",
+  "cpf": "355.793.100-56",
   "password": "123457"
 }
 
@@ -17,6 +20,6 @@ POST {{baseUrl}}/auth
 Content-Type: application/json
 
 {
-  "cpf": "073.515.880-07",
+  "cpf": "355.793.100-56",
   "password": "123457"
 }

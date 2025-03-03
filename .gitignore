@@ -58,6 +58,9 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # Database
 data
 
-#JWT Keys
+# JWT Keys
 private_key.pem
 public_key.pem
+
+# Images
+images
