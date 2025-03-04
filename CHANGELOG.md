@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/arakakimath/order-logistics-api/compare/v1.4.0...v1.5.0) (2025-03-04)
+
+
+### Features
+
+* add expiration time in token creation ([57cf173](https://github.com/arakakimath/order-logistics-api/commit/57cf1739c94e0cbe25f767b1b465f0270e996cde))
+* create refresh token in authenticate use case ([65cc840](https://github.com/arakakimath/order-logistics-api/commit/65cc840c7830e141f03d278cddb053dc4c6b656d))
+* decode method for token-service and related classes ([f0143d7](https://github.com/arakakimath/order-logistics-api/commit/f0143d7ade925b6e9492fb650740a33096753b72))
+* refresh token controller ([075e568](https://github.com/arakakimath/order-logistics-api/commit/075e568fc795a35ca9b61e01f9dc57b784115281))
+* refresh token use case ([f54b2ac](https://github.com/arakakimath/order-logistics-api/commit/f54b2aca57b2a70e79dd89ef5076488b2ea6c4d1))
+* set cookie when authenticating user ([10b7e94](https://github.com/arakakimath/order-logistics-api/commit/10b7e94951ee040e4489b98493f622fbd254a4c8))
+
 # [1.4.0](https://github.com/arakakimath/order-logistics-api/compare/v1.3.0...v1.4.0) (2025-03-03)
 
 
