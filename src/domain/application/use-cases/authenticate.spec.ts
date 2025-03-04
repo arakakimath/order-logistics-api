@@ -9,7 +9,7 @@ let fakeHasher: FakeHasher
 let fakeTokenService: FakeTokenService
 let sut: AuthenticateUseCase
 
-describe('Register Delivery Person', () => {
+describe('Authenticate Delivery Person', () => {
   beforeEach(() => {
     deliveryPeopleRepository = new InMemoryDeliveryPeopleRepository()
     fakeHasher = new FakeHasher()
@@ -33,7 +33,7 @@ describe('Register Delivery Person', () => {
       cpf: deliveryPerson.cpf,
       password: '123456',
     })
-    console.log(result.value)
+
     expect(result.isRight()).toBeTruthy()
     expect(result.value).toEqual(
       expect.objectContaining({
