@@ -15,12 +15,14 @@ async function bootstrap() {
 
   // Swagger
   const config = new DocumentBuilder()
-    .setTitle('Q&A Forum API')
-    .setDescription('API Description for managing a Q&A forum')
+    .setTitle('Order Logistics API')
+    .setDescription('API Description for managing an order logistics company')
     .setVersion('1.0')
     .build()
   const documentFactory = () => SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, documentFactory)
+  SwaggerModule.setup('api', app, documentFactory, {
+    customSiteTitle: 'Order Logistics API',
+  })
 
   const configService: ConfigService<Env, true> = app.get(ConfigService)
   const port = configService.get('PORT', { infer: true })
