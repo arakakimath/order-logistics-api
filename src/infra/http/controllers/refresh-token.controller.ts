@@ -8,21 +8,37 @@ import {
   HttpCode,
   Res,
 } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import { ApiTags } from '@nestjs/swagger'
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger'
 import { Response } from 'express'
 
 @Controller('/auth/refresh')
 @Public()
 @ApiTags('Users')
 export class RefreshTokenController {
-  constructor(
-    private jwt: JwtService,
-    private refreshTokenUseCase: RefreshTokenUseCase,
-  ) {}
+  constructor(private refreshTokenUseCase: RefreshTokenUseCase) {}
 
   @Get()
   @HttpCode(200)
+  @ApiOperation({ summary: 'Refresh token.' })
+  @ApiCookieAuth('refreshToken')
+  @ApiResponse({
+    status: 200,
+    schema: {
+      type: 'object',
+      properties: {
+        access_token: { type: 'string', description: 'JWT Token.' },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid JWT Token.',
+  })
   async handle(@RefreshToken() refreshToken: string, @Res() res: Response) {
     const result = await this.refreshTokenUseCase.execute({ refreshToken })
 
