@@ -3,7 +3,7 @@ import { DeliveryPeopleRepository } from '../repositories/delivery-people.reposi
 import { Injectable } from '@nestjs/common'
 import { CpfValidation } from '@/core/validation/cpf.validation'
 import { InvalidCpfError } from './errors/invalid-cpf.error'
-import { Encrypter } from '../cryptography/encrypter'
+import { TokenService } from '../cryptography/token-service'
 import { HashComparer } from '../cryptography/hash-comparer'
 import { WrongCredentialsError } from './errors/wrong-credentials.error'
 
@@ -25,7 +25,7 @@ export class AuthenticateUseCase {
   constructor(
     private deliveryPeopleRepository: DeliveryPeopleRepository,
     private hashComparer: HashComparer,
-    private encrypter: Encrypter,
+    private tokenservice: TokenService,
   ) {}
 
   async execute({
@@ -50,8 +50,8 @@ export class AuthenticateUseCase {
       role: deliveryPerson.isAdmin() ? 'admin' : 'regular',
     }
 
-    const accessToken = await this.encrypter.encrypt(payload)
-    const refreshToken = await this.encrypter.encrypt(payload, '7d')
+    const accessToken = await this.tokenservice.sign(payload)
+    const refreshToken = await this.tokenservice.sign(payload, '7d')
 
     return right({ accessToken, refreshToken })
   }

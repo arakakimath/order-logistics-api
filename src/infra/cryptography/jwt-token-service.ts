@@ -1,12 +1,12 @@
-import { Encrypter } from '@/domain/application/cryptography/encrypter'
+import { TokenService } from '@/domain/application/cryptography/token-service'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
-export class JwtEncrypter implements Encrypter {
+export class JwtTokenService implements TokenService {
   constructor(private jwt: JwtService) {}
 
-  async encrypt(
+  async sign(
     payload: Record<string, unknown>,
     expiresIn?: string,
   ): Promise<string> {
