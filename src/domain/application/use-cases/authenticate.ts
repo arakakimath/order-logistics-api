@@ -51,7 +51,7 @@ export class AuthenticateUseCase {
     }
 
     const accessToken = await this.tokenservice.sign(payload)
-    const refreshToken = await this.tokenservice.sign(payload, '7d')
+    const refreshToken = await this.tokenservice.sign(payload, '1d')
 
     return right({ accessToken, refreshToken })
   }
