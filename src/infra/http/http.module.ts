@@ -5,10 +5,20 @@ import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/re
 import { CryptoModule } from '../cryptography/crypto.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { AuthenticateUseCase } from '@/domain/application/use-cases/authenticate'
+import { RefreshTokenController } from './controllers/refresh-token.controller'
+import { RefreshTokenUseCase } from '@/domain/application/use-cases/refresh-token'
 
 @Module({
   imports: [DatabaseModule, CryptoModule],
-  controllers: [CreateUserController, AuthenticateController],
-  providers: [RegisterDeliveryPersonUseCase, AuthenticateUseCase],
+  controllers: [
+    CreateUserController,
+    AuthenticateController,
+    RefreshTokenController,
+  ],
+  providers: [
+    RegisterDeliveryPersonUseCase,
+    AuthenticateUseCase,
+    RefreshTokenUseCase,
+  ],
 })
 export class HTTPModule {}

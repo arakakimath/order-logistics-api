@@ -3,7 +3,7 @@ import { DeliveryPeopleRepository } from '../repositories/delivery-people.reposi
 import { Injectable } from '@nestjs/common'
 import { CpfValidation } from '@/core/validation/cpf.validation'
 import { InvalidCpfError } from './errors/invalid-cpf.error'
-import { Encrypter } from '../cryptography/encrypter'
+import { TokenService } from '../cryptography/token-service'
 import { HashComparer } from '../cryptography/hash-comparer'
 import { WrongCredentialsError } from './errors/wrong-credentials.error'
 
@@ -16,6 +16,7 @@ type AuthenticateUseCaseResponse = Either<
   InvalidCpfError | WrongCredentialsError,
   {
     accessToken: string
+    refreshToken: string
   }
 >
 
@@ -24,7 +25,7 @@ export class AuthenticateUseCase {
   constructor(
     private deliveryPeopleRepository: DeliveryPeopleRepository,
     private hashComparer: HashComparer,
-    private encrypter: Encrypter,
+    private tokenservice: TokenService,
   ) {}
 
   async execute({
@@ -44,11 +45,14 @@ export class AuthenticateUseCase {
 
     if (!isPasswordValid) return left(new WrongCredentialsError())
 
-    const accessToken = await this.encrypter.encrypt({
+    const payload = {
       sub: deliveryPerson.id.toString(),
       role: deliveryPerson.isAdmin() ? 'admin' : 'regular',
-    })
+    }
 
-    return right({ accessToken })
+    const accessToken = await this.tokenservice.sign(payload)
+    const refreshToken = await this.tokenservice.sign(payload, '1d')
+
+    return right({ accessToken, refreshToken })
   }
 }

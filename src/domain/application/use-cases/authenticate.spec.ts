@@ -2,23 +2,23 @@ import { InMemoryDeliveryPeopleRepository } from 'test/in-memory-repositories/de
 import { AuthenticateUseCase } from './authenticate'
 import { FakeHasher } from 'test/cryptography/fake-hasher'
 import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
-import { FakeEncrypter } from 'test/cryptography/fake-encrypter'
+import { FakeTokenService } from 'test/cryptography/fake-token-service'
 
 let deliveryPeopleRepository: InMemoryDeliveryPeopleRepository
 let fakeHasher: FakeHasher
-let fakeEncrypter: FakeEncrypter
+let fakeTokenService: FakeTokenService
 let sut: AuthenticateUseCase
 
-describe('Register Delivery Person', () => {
+describe('Authenticate Delivery Person', () => {
   beforeEach(() => {
     deliveryPeopleRepository = new InMemoryDeliveryPeopleRepository()
     fakeHasher = new FakeHasher()
-    fakeEncrypter = new FakeEncrypter()
+    fakeTokenService = new FakeTokenService()
 
     sut = new AuthenticateUseCase(
       deliveryPeopleRepository,
       fakeHasher,
-      fakeEncrypter,
+      fakeTokenService,
     )
   })
 
@@ -33,11 +33,12 @@ describe('Register Delivery Person', () => {
       cpf: deliveryPerson.cpf,
       password: '123456',
     })
-    console.log(result.value)
+
     expect(result.isRight()).toBeTruthy()
     expect(result.value).toEqual(
       expect.objectContaining({
         accessToken: expect.any(String),
+        refreshToken: expect.any(String),
       }),
     )
   })
