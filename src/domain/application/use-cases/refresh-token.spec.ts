@@ -1,4 +1,3 @@
-import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
 import { FakeTokenService } from 'test/cryptography/fake-token-service'
 import { RefreshTokenUseCase } from './refresh-token'
 
