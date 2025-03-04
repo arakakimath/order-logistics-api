@@ -7,4 +7,8 @@ export class FakeTokenService implements TokenService {
   ): Promise<string> {
     return JSON.stringify({ ...payload, expiresIn })
   }
+
+  async decode(token: string): Promise<Record<string, unknown> | null> {
+    return JSON.parse(token)
+  }
 }
