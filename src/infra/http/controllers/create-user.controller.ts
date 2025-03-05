@@ -2,7 +2,6 @@ import { DeliveryPersonAlreadyExistsError } from '@/domain/application/use-cases
 import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
 import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
-import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
   BadRequestException,
@@ -10,7 +9,6 @@ import {
   ConflictException,
   Controller,
   Post,
-  UnauthorizedException,
 } from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
@@ -89,15 +87,9 @@ export class CreateUserController {
   })
   async handle(
     @Body(bodyValidationPipe) body: RegisterBodySchema,
-    @CurrentUser() user: UserPayload,
+    @CurrentUser({ admin: true }) _: never,
   ) {
     const { name, cpf, password, admin } = body
-    const { role } = user
-
-    if (role !== 'admin')
-      throw new UnauthorizedException(
-        'User must be admin to create an account.',
-      )
 
     const result = await this.registerUseCase.execute({
       name,

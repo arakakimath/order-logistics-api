@@ -19,7 +19,8 @@
     ],
     "camelcase": "off",
     "no-useless-constructor": "off",
-    "no-new": "off"
+    "no-new": "off",
+    "no-unused-vars": "warn"
   }
   // "env": {
   //   "vitest-globals/env": true
