@@ -6,6 +6,7 @@ import { EnvService } from '../env/env.service'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtAuthGuard } from './jwt-auth.guard'
 import { JwtStrategy } from './jwt.strategy'
+import { CryptoModule } from '../cryptography/crypto.module'
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { JwtStrategy } from './jwt.strategy'
       },
     }),
     EnvModule,
+    CryptoModule,
   ],
   providers: [
     {
