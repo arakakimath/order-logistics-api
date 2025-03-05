@@ -38,7 +38,7 @@ export class AuthenticateWithOAuth2UseCase {
         authProviderUsername,
       )
 
-    if (deliveryPerson.id.toString() !== userID && userID)
+    if (deliveryPerson?.id.toString() !== userID && userID && deliveryPerson)
       return left(new OAuthMethodAlreadyUsedError())
 
     if (!deliveryPerson) {
