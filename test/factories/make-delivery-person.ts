@@ -33,6 +33,7 @@ export function makeDeliveryPerson(
       name: faker.person.fullName(),
       cpf: createCpf(),
       password: faker.internet.password(),
+      admin: false,
       ...override,
     },
     id,
