@@ -7,5 +7,6 @@ export namespace MongooseTypes {
     cpf: string
     password: string
     admin?: boolean
+    githubUsername?: string
   }
 }
