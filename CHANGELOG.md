@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/arakakimath/order-logistics-api/compare/v1.5.0...v1.6.0) (2025-03-05)
+
+
+### Features
+
+* add validation to current user decorator ([c0e8c42](https://github.com/arakakimath/order-logistics-api/commit/c0e8c429c012eb12b50f1236697bc2bfb8f39013))
+
 # [1.5.0](https://github.com/arakakimath/order-logistics-api/compare/v1.4.0...v1.5.0) (2025-03-04)
 
 
