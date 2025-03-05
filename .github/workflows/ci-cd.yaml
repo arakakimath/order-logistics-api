@@ -69,7 +69,7 @@ jobs:
         image: ${{ steps.build-docker-image.outputs.image }}
         access-role-arn: ${{ secrets.AWS_APPRUNNER_ROLE_ARN }}
         region: ${{ secrets.AWS_REGION }}
-        cpu: 0.5
+        cpu: 0.25
         memory: 1
         port: 3000
         wait-for-service-stability-seconds: 180
