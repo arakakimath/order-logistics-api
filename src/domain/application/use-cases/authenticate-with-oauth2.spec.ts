@@ -70,8 +70,6 @@ describe('Authenticate with OAuth2', () => {
       userID: undefined,
     })
 
-    console.log(result.value)
-
     expect(result.isRight()).toBeFalsy()
     expect(result.value).toBeInstanceOf(MustBeAuthenticatedToLinkOAuthError)
   })

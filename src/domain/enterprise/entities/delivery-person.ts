@@ -15,12 +15,20 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
     return this.props.name
   }
 
+  set name(name: string) {
+    this.props.name = name
+  }
+
   get cpf() {
     return this.props.cpf
   }
 
   get password() {
     return this.props.password
+  }
+
+  set password(password: string) {
+    this.props.password = password
   }
 
   get githubUsername() {
@@ -33,6 +41,14 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
 
   isAdmin() {
     return this.props.admin
+  }
+
+  get admin() {
+    return this.props.admin
+  }
+
+  set admin(admin: boolean) {
+    this.props.admin = admin
   }
 
   static create(
