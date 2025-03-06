@@ -2,6 +2,18 @@
 
 @authToken = {{ authenticate.response.body.access_token }}
 
+# @name authenticate
+POST {{baseUrl}}/auth
+Content-Type: application/json
+
+# authenticate as admin
+{
+  "cpf": "878.169.330-37",
+  "password": "123456"
+}
+
+###
+
 # @name create_user
 POST {{baseUrl}}/users
 Content-Type: application/json
@@ -16,14 +28,16 @@ Authorization: Bearer {{ authToken }}
 
 ###
 
-# @name authenticate
-POST {{baseUrl}}/auth
+# @name update_user
+PUT {{baseUrl}}/users
 Content-Type: application/json
+Authorization: Bearer {{ authToken }}
 
-# authenticate as admin
 {
-  "cpf": "346.873.110-83",
-  "password": "123456"
+  "name": "Yuri Izidoro",
+  "cpf": "878.169.330-37",
+  "password": "123456",
+  "admin": true
 }
 
 ###

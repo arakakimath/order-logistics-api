@@ -12,6 +12,8 @@ import { EnvModule } from '../env/env.module'
 import { HttpModule as AxiosModule } from '@nestjs/axios'
 import { GitHubAuthService } from './oauth2/github-auth.service'
 import { AuthenticateWithOAuth2UseCase } from '@/domain/application/use-cases/authenticate-with-oauth2'
+import { UpdateDeliveryPersonUseCase } from '@/domain/application/use-cases/update-delivery-person'
+import { UpdateUserController } from './controllers/update-user.controller'
 
 @Module({
   imports: [DatabaseModule, CryptoModule, EnvModule, AxiosModule],
@@ -20,13 +22,15 @@ import { AuthenticateWithOAuth2UseCase } from '@/domain/application/use-cases/au
     AuthenticateController,
     RefreshTokenController,
     AuthenticateWithGitHubController,
+    UpdateUserController,
   ],
   providers: [
     RegisterDeliveryPersonUseCase,
     AuthenticateUseCase,
     RefreshTokenUseCase,
-    GitHubAuthService,
     AuthenticateWithOAuth2UseCase,
+    UpdateDeliveryPersonUseCase,
+    GitHubAuthService,
   ],
 })
 export class HTTPModule {}
