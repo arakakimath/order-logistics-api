@@ -24,7 +24,7 @@ export class AuthenticateWithOAuth2UseCase {
   constructor(
     private deliveryPeopleRepository: DeliveryPeopleRepository,
     private tokenservice: TokenService,
-  ) { }
+  ) {}
 
   async execute({
     authProvider,

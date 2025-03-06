@@ -29,7 +29,7 @@ type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 @Public()
 @ApiTags('Users')
 export class AuthenticateController {
-  constructor(private authenticateUseCase: AuthenticateUseCase) { }
+  constructor(private authenticateUseCase: AuthenticateUseCase) {}
 
   @Post()
   @HttpCode(200)

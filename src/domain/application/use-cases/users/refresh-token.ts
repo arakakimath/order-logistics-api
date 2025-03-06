@@ -19,7 +19,7 @@ type RefreshTokenUseCaseResponse = Either<
 
 @Injectable()
 export class RefreshTokenUseCase {
-  constructor(private tokenservice: TokenService) { }
+  constructor(private tokenservice: TokenService) {}
 
   async execute({
     refreshToken,

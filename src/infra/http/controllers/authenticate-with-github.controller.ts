@@ -26,7 +26,7 @@ export class AuthenticateWithGitHubController {
     private env: EnvService,
     private gitHubAuthService: GitHubAuthService,
     private authenticateWithOAuth2UseCase: AuthenticateWithOAuth2UseCase,
-  ) { }
+  ) {}
 
   @Get()
   @HttpCode(200)

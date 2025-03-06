@@ -26,7 +26,7 @@ export class AuthenticateUseCase {
     private deliveryPeopleRepository: DeliveryPeopleRepository,
     private hashComparer: HashComparer,
     private tokenservice: TokenService,
-  ) { }
+  ) {}
 
   async execute({
     cpf,

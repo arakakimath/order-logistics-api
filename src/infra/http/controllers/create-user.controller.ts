@@ -27,7 +27,7 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 @Controller('/users')
 @ApiTags('Users')
 export class CreateUserController {
-  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) { }
+  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Register a delivery person.' })
@@ -86,7 +86,7 @@ export class CreateUserController {
     description: 'Request unauthorized.',
   })
   async handle(
-    @Body(bodyValidationPipe) body: RegisterBodySchema,
+    @Body(bodyValidationPipe) body: RegisterBodySchema, // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @CurrentUser({ admin: true }) _: never,
   ) {
     const { name, cpf, password, admin } = body

@@ -20,7 +20,7 @@ import { Response } from 'express'
 @Public()
 @ApiTags('Users')
 export class RefreshTokenController {
-  constructor(private refreshTokenUseCase: RefreshTokenUseCase) { }
+  constructor(private refreshTokenUseCase: RefreshTokenUseCase) {}
 
   @Get()
   @HttpCode(200)
