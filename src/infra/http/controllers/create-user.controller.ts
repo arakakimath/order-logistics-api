@@ -1,6 +1,6 @@
 import { DeliveryPersonAlreadyExistsError } from '@/domain/application/use-cases/errors/delivery-person-already-exists.error'
 import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
-import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
+import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/users/register-delivery-person'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
@@ -27,7 +27,7 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 @Controller('/users')
 @ApiTags('Users')
 export class CreateUserController {
-  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) {}
+  constructor(private registerUseCase: RegisterDeliveryPersonUseCase) { }
 
   @Post()
   @ApiOperation({ summary: 'Register a delivery person.' })

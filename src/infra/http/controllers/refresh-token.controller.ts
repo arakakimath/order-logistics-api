@@ -1,4 +1,4 @@
-import { RefreshTokenUseCase } from '@/domain/application/use-cases/refresh-token'
+import { RefreshTokenUseCase } from '@/domain/application/use-cases/users/refresh-token'
 import { Public } from '@/infra/auth/public'
 import { RefreshToken } from '@/infra/auth/refresh-token.decorator'
 import {
@@ -20,7 +20,7 @@ import { Response } from 'express'
 @Public()
 @ApiTags('Users')
 export class RefreshTokenController {
-  constructor(private refreshTokenUseCase: RefreshTokenUseCase) {}
+  constructor(private refreshTokenUseCase: RefreshTokenUseCase) { }
 
   @Get()
   @HttpCode(200)
