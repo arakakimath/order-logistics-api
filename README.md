@@ -24,7 +24,9 @@ The API supports **role-based access control**, allowing **admins to manage deli
 
 ## 🔍 About the Project <a id="about"></a> 
 
-(Brief description of what the API does)  
+The Order Logistics API is a system designed to manage deliveries for a fictitious company called FastFeet. It allows administrators to manage orders, delivery personnel, and recipients while providing delivery personnel with tools to track and complete deliveries efficiently.
+
+The API includes authentication, role-based access control, order tracking, and notifications for recipients when an order's status changes.
 
 ## 🚀 Technologies <a id="technologies"></a> 
 
