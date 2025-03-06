@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/arakakimath/order-logistics-api/compare/v1.7.0...v1.8.0) (2025-03-06)
+
+
+### Bug Fixes
+
+* delivery person not found error ([ebcb1a3](https://github.com/arakakimath/order-logistics-api/commit/ebcb1a3e086fdb0c8f2915442dfc05e2c3e2ccfa))
+
+
+### Features
+
+* update delivery person use-case ([12f65f9](https://github.com/arakakimath/order-logistics-api/commit/12f65f99e4becf71ac5c7c77bb3e3db9feb3349b))
+* update user controller ([b2a9e03](https://github.com/arakakimath/order-logistics-api/commit/b2a9e034edf11a28d357e86ce1674d546cb2bca4))
+
 # [1.7.0](https://github.com/arakakimath/order-logistics-api/compare/v1.6.0...v1.7.0) (2025-03-06)
 
 
