@@ -1,3 +1,14 @@
+# [1.9.0](https://github.com/arakakimath/order-logistics-api/compare/v1.8.0...v1.9.0) (2025-03-06)
+
+
+### Features
+
+* delete delivery person controller ([00609ec](https://github.com/arakakimath/order-logistics-api/commit/00609ec44d8f4b04473009577e0847afa6b180fa))
+* delete delivery person use case ([ad4acd4](https://github.com/arakakimath/order-logistics-api/commit/ad4acd4be11587bf2b69ebd311967c16c297319e))
+* delete method for delivery people repository ([5310ed9](https://github.com/arakakimath/order-logistics-api/commit/5310ed92ed899361efd02b71ab9364ff2dedc96e))
+* get delivery person controller ([fe9bac2](https://github.com/arakakimath/order-logistics-api/commit/fe9bac23acca3aea78f56f98686220b04dc206d9))
+* get delivery person use case ([7e74536](https://github.com/arakakimath/order-logistics-api/commit/7e74536f4aa3f9f9d95bd917a747c9c73d161678))
+
 # [1.8.0](https://github.com/arakakimath/order-logistics-api/compare/v1.7.0...v1.8.0) (2025-03-06)
 
 
