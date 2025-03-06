@@ -41,7 +41,8 @@ The API supports **role-based access control**, allowing **admins to manage deli
 - **📝 ESLint** – Code formatting and linting for maintaining consistent code quality.  
 - **🔑 bcryptjs** – Password hashing and comparison for secure authentication.  
 - **📄 Swagger** – API documentation for easy testing and integration.  
-- **🚀 Semantic Release** – Automated versioning and changelog generation for streamlined releases.
+- **🚀 Semantic Release** – Automated versioning and changelog generation for streamlined releases.  
+- **🔗 OAuth 2.0 with GitHub** – Secure authentication via GitHub using OAuth 2.0 for user login.
 
 ### **Infrastructure & Deployment**
 
@@ -85,7 +86,21 @@ To run this project, you need:
 
 ## 🔑 Environment Variables <a id="env-vars"></a> 
 
-(List of required environment variables and how to configure them)    
+```
+PORT=3333
+NODE_ENV="dev"
+
+# Database
+DATABASE_URL="mongodb://mongodb:docker@localhost:27017/order-logistics?authSource=admin"
+
+# JWT Secrets => Generate ECDSA private key and then public key
+JWT_PRIVATE_KEY="jwt_ec_key"
+JWT_PUBLIC_KEY="jwt_ec_public_key"
+
+# Auth with GitHub
+GITHUB_CLIENT_ID="someID"
+GITHUB_CLIENT_SECRET="someSecret"
+```
 
 ## ✅ Functional Requirements <a id="functional-requirements"></a> 
 
@@ -132,6 +147,9 @@ npm run test:e2e
 ### Register delivery person - [POST] /users
 
 ### Authenticate login - [POST] /auth
+
+### Authenticate with GitHub (OAuth 2.0) - [GET] /auth/github
+Redirects users to authorization github page and then to /auth/github/callback, which can link github with already created users or login into API  
 
 ## 🤝 Contributing <a id="contributing"></a>  
 
