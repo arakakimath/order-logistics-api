@@ -3,18 +3,17 @@ import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
 import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
 import { HashGenerator } from '../cryptography/hash-generator'
-import { CpfValidation } from '@/core/validation/cpf.validation'
-import { InvalidCpfError } from './errors/invalid-cpf.error'
+import { DeliveryPersonNotFoundError } from './errors/delivery-person-not-found.error'
 
 interface UpdateDeliveryPersonUseCaseRequest {
-  name?: string
   cpf: string
+  name?: string
   password?: string
   admin?: boolean
 }
 
 type UpdateDeliveryPersonUseCaseResponse = Either<
-  InvalidCpfError,
+  DeliveryPersonNotFoundError,
   {
     deliveryPerson: DeliveryPerson
   }
@@ -28,14 +27,14 @@ export class UpdateDeliveryPersonUseCase {
   ) {}
 
   async execute({
-    name,
     cpf,
+    name,
     password,
     admin,
   }: UpdateDeliveryPersonUseCaseRequest): Promise<UpdateDeliveryPersonUseCaseResponse> {
-    if (!CpfValidation.isCpfValid(cpf)) return left(new InvalidCpfError())
-
     const deliveryPerson = await this.deliveryPeopleRepository.findByCpf(cpf)
+
+    if (!deliveryPerson) return left(new DeliveryPersonNotFoundError())
 
     deliveryPerson.name = name ?? deliveryPerson.name
     deliveryPerson.password = password
