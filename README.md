@@ -108,7 +108,7 @@ GITHUB_CLIENT_SECRET="someSecret"
 
 - [x] Application must have two roles for users: admin and/or delivery person  
 - [x] It should be possible to sign in with CPF (National ID) and password  
-- [ ] It should be possible to perform the CRUD of the delivery people  
+- [x] It should be possible to perform the CRUD of the delivery people  
 - [ ] It should be possible to perform the CRUD of the orders  
 - [ ] It should be possible to perform the CRUD of the recipients  
 - [ ] It should be possible to flag an order as awaiting (Available for pickup)  
@@ -116,18 +116,18 @@ GITHUB_CLIENT_SECRET="someSecret"
 - [ ] It should be possible to flag an order as delivered  
 - [ ] It should be possible to flag an order as returned  
 - [ ] It should be possible to list orders whose delivery addresses are close to the delivery person  
-- [ ] It should be possible to change user's password  
+- [x] It should be possible to change user's password  
 - [ ] It should be possible to list user's orders  
 - [ ] It should be possible to notify recipient on every order status change  
 
 ## 📜 Business Rules <a id="business-rules"></a> 
 
+- [x] Only admin users can perform CRUD of the delivery people  
 - [ ] Only admin users can perform CRUD of the orders  
-- [ ] Only admin users can perform CRUD of the delivery people  
 - [ ] Only admin users can perform CRUD of the recipients  
 - [ ] A photo is needed to flag an order as delivered  
 - [ ] Only the delivery person who picked up the order can flag it as delivered  
-- [ ] Only admin users can change an user's password  
+- [x] Only admin users can change an user's password  
 - [ ] It should not be possible for a delivery person to list another one's orders  
 
 ## 🧪 Running Tests <a id="running-tests"></a>  
