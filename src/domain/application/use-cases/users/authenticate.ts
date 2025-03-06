@@ -1,11 +1,11 @@
 import { Either, left, right } from '@/core/either'
-import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
+import { DeliveryPeopleRepository } from '../../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
 import { CpfValidation } from '@/core/validation/cpf.validation'
-import { InvalidCpfError } from './errors/invalid-cpf.error'
-import { TokenService } from '../cryptography/token-service'
-import { HashComparer } from '../cryptography/hash-comparer'
-import { WrongCredentialsError } from './errors/wrong-credentials.error'
+import { InvalidCpfError } from '../errors/invalid-cpf.error'
+import { TokenService } from '../../cryptography/token-service'
+import { HashComparer } from '../../cryptography/hash-comparer'
+import { WrongCredentialsError } from '../errors/wrong-credentials.error'
 
 interface AuthenticateUseCaseRequest {
   cpf: string
@@ -26,7 +26,7 @@ export class AuthenticateUseCase {
     private deliveryPeopleRepository: DeliveryPeopleRepository,
     private hashComparer: HashComparer,
     private tokenservice: TokenService,
-  ) {}
+  ) { }
 
   async execute({
     cpf,

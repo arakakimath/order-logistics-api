@@ -1,11 +1,11 @@
 import { Either, left, right } from '@/core/either'
 import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
-import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
+import { DeliveryPeopleRepository } from '../../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
-import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists.error'
-import { HashGenerator } from '../cryptography/hash-generator'
+import { DeliveryPersonAlreadyExistsError } from '../errors/delivery-person-already-exists.error'
+import { HashGenerator } from '../../cryptography/hash-generator'
 import { CpfValidation } from '@/core/validation/cpf.validation'
-import { InvalidCpfError } from './errors/invalid-cpf.error'
+import { InvalidCpfError } from '../errors/invalid-cpf.error'
 
 interface RegisterDeliveryPersonUseCaseRequest {
   name: string

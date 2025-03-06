@@ -2,8 +2,8 @@ import { InMemoryDeliveryPeopleRepository } from 'test/in-memory-repositories/de
 import { RegisterDeliveryPersonUseCase } from './register-delivery-person'
 import { FakeHasher } from 'test/cryptography/fake-hasher'
 import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
-import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists.error'
-import { InvalidCpfError } from './errors/invalid-cpf.error'
+import { DeliveryPersonAlreadyExistsError } from '../errors/delivery-person-already-exists.error'
+import { InvalidCpfError } from '../errors/invalid-cpf.error'
 
 let deliveryPeopleRepository: InMemoryDeliveryPeopleRepository
 let fakeHasher: FakeHasher
