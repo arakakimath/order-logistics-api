@@ -30,6 +30,11 @@ export class User {
     default: false,
   })
   admin: boolean
+
+  @Prop({
+    required: false,
+  })
+  githubUsername: string
 }
 
 export type UserDocument = HydratedDocument<User>

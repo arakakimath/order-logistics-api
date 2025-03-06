@@ -10,7 +10,23 @@ export class InMemoryDeliveryPeopleRepository
     this.items.push(deliveryPerson)
   }
 
+  async save(deliveryPerson: DeliveryPerson): Promise<void> {
+    const index = this.items.findIndex((item) =>
+      item.id.equals(deliveryPerson.id),
+    )
+
+    this.items[index] = deliveryPerson
+  }
+
   async findByCpf(cpf: string): Promise<DeliveryPerson | null> {
     return this.items.filter((item) => item.cpf === cpf)[0]
+  }
+
+  async findByID(id: string): Promise<DeliveryPerson | null> {
+    return this.items.filter((item) => item.id.toString() === id)[0]
+  }
+
+  async findByGitHubUsername(username: string): Promise<DeliveryPerson | null> {
+    return this.items.filter((item) => item.githubUsername === username)[0]
   }
 }

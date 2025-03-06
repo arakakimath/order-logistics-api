@@ -7,6 +7,7 @@ export interface DeliveryPersonProps {
   cpf: string
   password: string
   admin: boolean
+  githubUsername?: string
 }
 
 export class DeliveryPerson extends Entity<DeliveryPersonProps> {
@@ -20,6 +21,14 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
 
   get password() {
     return this.props.password
+  }
+
+  get githubUsername() {
+    return this.props.githubUsername
+  }
+
+  set githubUsername(username: string) {
+    this.props.githubUsername = username
   }
 
   isAdmin() {

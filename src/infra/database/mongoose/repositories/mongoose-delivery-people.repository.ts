@@ -3,7 +3,6 @@ import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
 import { Injectable } from '@nestjs/common'
 import { MongooseDeliveryPersonMapper } from '../mappers/mongoose-delivery-person.mapper'
 import { MongooseService } from '../mongoose.service'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 @Injectable()
 export class MongooseDeliveryPeopleRepository
@@ -17,19 +16,35 @@ export class MongooseDeliveryPeopleRepository
     await this.mongoose.user.create(data)
   }
 
+  async save(deliveryPerson: DeliveryPerson): Promise<void> {
+    const data = MongooseDeliveryPersonMapper.toMongoose(deliveryPerson)
+
+    await this.mongoose.user.updateOne({ _id: data._id }, data)
+  }
+
   async findByCpf(cpf: string) {
     const deliveryPerson = await this.mongoose.user.findOne({ cpf })
 
     return deliveryPerson
-      ? DeliveryPerson.create(
-          {
-            name: deliveryPerson.name,
-            cpf: deliveryPerson.cpf,
-            admin: deliveryPerson.admin,
-            password: deliveryPerson.password,
-          },
-          new UniqueEntityID(deliveryPerson._id),
-        )
+      ? MongooseDeliveryPersonMapper.toDomain(deliveryPerson)
+      : null
+  }
+
+  async findByID(id: string) {
+    const deliveryPerson = await this.mongoose.user.findById({ _id: id })
+
+    return deliveryPerson
+      ? MongooseDeliveryPersonMapper.toDomain(deliveryPerson)
+      : null
+  }
+
+  async findByGitHubUsername(username: string) {
+    const deliveryPerson = await this.mongoose.user.findOne({
+      githubUsername: username,
+    })
+
+    return deliveryPerson
+      ? MongooseDeliveryPersonMapper.toDomain(deliveryPerson)
       : null
   }
 }

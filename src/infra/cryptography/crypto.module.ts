@@ -10,7 +10,8 @@ import { JwtTokenService } from './jwt-token-service'
     { provide: HashGenerator, useClass: BcryptHasher },
     { provide: HashComparer, useClass: BcryptHasher },
     { provide: TokenService, useClass: JwtTokenService },
+    JwtTokenService,
   ],
-  exports: [HashGenerator, HashComparer, TokenService],
+  exports: [HashGenerator, HashComparer, TokenService, JwtTokenService],
 })
 export class CryptoModule {}

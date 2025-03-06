@@ -6,10 +6,10 @@ import {
 import { UserPayload } from './jwt.strategy'
 
 export const CurrentUser = createParamDecorator(
-  ({ admin }: Record<'admin', boolean>, context: ExecutionContext) => {
+  (object: Record<'admin', boolean | undefined>, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest()
 
-    if (admin && request.user.role !== 'admin')
+    if (object?.admin && request.user.role !== 'admin')
       throw new UnauthorizedException(
         'User must be admin to access this controller.',
       )

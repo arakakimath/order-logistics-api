@@ -17,9 +17,8 @@ export class JwtTokenService implements TokenService {
   async decode(token: string): Promise<Record<string, unknown> | null> {
     try {
       const payload = this.jwt.verify(token)
-      tokenPayloadSchema.parse(payload)
 
-      return payload
+      return tokenPayloadSchema.parse(payload)
     } catch (error) {
       return null
     }
