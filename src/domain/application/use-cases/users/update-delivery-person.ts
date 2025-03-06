@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either'
 import { DeliveryPerson } from '@/domain/enterprise/entities/delivery-person'
-import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
+import { DeliveryPeopleRepository } from '../../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
-import { HashGenerator } from '../cryptography/hash-generator'
-import { DeliveryPersonNotFoundError } from './errors/delivery-person-not-found.error'
+import { HashGenerator } from '../../cryptography/hash-generator'
+import { DeliveryPersonNotFoundError } from '../errors/delivery-person-not-found.error'
 
 interface UpdateDeliveryPersonUseCaseRequest {
   cpf: string

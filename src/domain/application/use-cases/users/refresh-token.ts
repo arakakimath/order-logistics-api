@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either'
 import { Injectable } from '@nestjs/common'
-import { InvalidCpfError } from './errors/invalid-cpf.error'
-import { TokenService } from '../cryptography/token-service'
-import { WrongCredentialsError } from './errors/wrong-credentials.error'
-import { InvalidTokenError } from './errors/invalid-token.error'
+import { InvalidCpfError } from '../errors/invalid-cpf.error'
+import { TokenService } from '../../cryptography/token-service'
+import { WrongCredentialsError } from '../errors/wrong-credentials.error'
+import { InvalidTokenError } from '../errors/invalid-token.error'
 
 interface RefreshTokenUseCaseRequest {
   refreshToken: string

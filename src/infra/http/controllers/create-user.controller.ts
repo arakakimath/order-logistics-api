@@ -1,6 +1,6 @@
 import { DeliveryPersonAlreadyExistsError } from '@/domain/application/use-cases/errors/delivery-person-already-exists.error'
 import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
-import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/register-delivery-person'
+import { RegisterDeliveryPersonUseCase } from '@/domain/application/use-cases/users/register-delivery-person'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import {
@@ -86,7 +86,7 @@ export class CreateUserController {
     description: 'Request unauthorized.',
   })
   async handle(
-    @Body(bodyValidationPipe) body: RegisterBodySchema,
+    @Body(bodyValidationPipe) body: RegisterBodySchema, // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @CurrentUser({ admin: true }) _: never,
   ) {
     const { name, cpf, password, admin } = body

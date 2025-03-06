@@ -2,7 +2,7 @@ import { InMemoryDeliveryPeopleRepository } from 'test/in-memory-repositories/de
 import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
 import { AuthenticateWithOAuth2UseCase } from './authenticate-with-oauth2'
 import { FakeTokenService } from 'test/cryptography/fake-token-service'
-import { MustBeAuthenticatedToLinkOAuthError } from './errors/must-be-authenticated-to-link-oauth.error'
+import { MustBeAuthenticatedToLinkOAuthError } from '../errors/must-be-authenticated-to-link-oauth.error'
 
 let deliveryPeopleRepository: InMemoryDeliveryPeopleRepository
 let tokenService: FakeTokenService

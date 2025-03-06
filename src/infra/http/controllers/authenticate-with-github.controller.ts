@@ -14,7 +14,7 @@ import { Response } from 'express'
 import { GitHubAuthService } from '../oauth2/github-auth.service'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
-import { AuthenticateWithOAuth2UseCase } from '@/domain/application/use-cases/authenticate-with-oauth2'
+import { AuthenticateWithOAuth2UseCase } from '@/domain/application/use-cases/users/authenticate-with-oauth2'
 import { MustBeAuthenticatedToLinkOAuthError } from '@/domain/application/use-cases/errors/must-be-authenticated-to-link-oauth.error'
 import { OAuthMethodAlreadyUsedError } from '@/domain/application/use-cases/errors/oauth-method-already-used.error'
 

@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either'
-import { DeliveryPeopleRepository } from '../repositories/delivery-people.repository'
+import { DeliveryPeopleRepository } from '../../repositories/delivery-people.repository'
 import { Injectable } from '@nestjs/common'
-import { TokenService } from '../cryptography/token-service'
-import { OAuthMethodAlreadyUsedError } from './errors/oauth-method-already-used.error'
-import { MustBeAuthenticatedToLinkOAuthError } from './errors/must-be-authenticated-to-link-oauth.error'
+import { TokenService } from '../../cryptography/token-service'
+import { OAuthMethodAlreadyUsedError } from '../errors/oauth-method-already-used.error'
+import { MustBeAuthenticatedToLinkOAuthError } from '../errors/must-be-authenticated-to-link-oauth.error'
 
 interface AuthenticateWithOAuth2UseCaseRequest {
   authProvider: 'github'

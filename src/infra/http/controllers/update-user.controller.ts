@@ -1,4 +1,4 @@
-import { UpdateDeliveryPersonUseCase } from '@/domain/application/use-cases/update-delivery-person'
+import { UpdateDeliveryPersonUseCase } from '@/domain/application/use-cases/users/update-delivery-person'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { ZodValidationPipe } from '@/infra/pipes/zod-validation.pipe'
 import { Body, Controller, NotFoundException, Put } from '@nestjs/common'

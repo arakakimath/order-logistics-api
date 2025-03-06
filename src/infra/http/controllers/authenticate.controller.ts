@@ -1,4 +1,4 @@
-import { AuthenticateUseCase } from '@/domain/application/use-cases/authenticate'
+import { AuthenticateUseCase } from '@/domain/application/use-cases/users/authenticate'
 import { InvalidCpfError } from '@/domain/application/use-cases/errors/invalid-cpf.error'
 import { WrongCredentialsError } from '@/domain/application/use-cases/errors/wrong-credentials.error'
 import { Public } from '@/infra/auth/public'

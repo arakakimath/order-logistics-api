@@ -18,6 +18,14 @@ export class InMemoryDeliveryPeopleRepository
     this.items[index] = deliveryPerson
   }
 
+  async delete(deliveryPerson: DeliveryPerson): Promise<void> {
+    const index = this.items.findIndex((item) =>
+      item.id.equals(deliveryPerson.id),
+    )
+
+    this.items.splice(index, 1)
+  }
+
   async findByCpf(cpf: string): Promise<DeliveryPerson | null> {
     return this.items.filter((item) => item.cpf === cpf)[0]
   }
