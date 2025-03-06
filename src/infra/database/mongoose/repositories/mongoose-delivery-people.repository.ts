@@ -22,6 +22,10 @@ export class MongooseDeliveryPeopleRepository
     await this.mongoose.user.updateOne({ _id: data._id }, data)
   }
 
+  async delete(deliveryPerson: DeliveryPerson): Promise<void> {
+    await this.mongoose.user.deleteOne({ _id: deliveryPerson.id.toString() })
+  }
+
   async findByCpf(cpf: string) {
     const deliveryPerson = await this.mongoose.user.findOne({ cpf })
 
