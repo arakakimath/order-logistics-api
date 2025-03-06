@@ -1,3 +1,23 @@
+# [1.7.0](https://github.com/arakakimath/order-logistics-api/compare/v1.6.0...v1.7.0) (2025-03-06)
+
+
+### Bug Fixes
+
+* if condition to return error oauth already used ([5b1da65](https://github.com/arakakimath/order-logistics-api/commit/5b1da651f16ec67bc39bf600848c2917ce93885f))
+* input changed to the object itself to avoid importing property from undefined ([10f113a](https://github.com/arakakimath/order-logistics-api/commit/10f113a6f73bbd49697b49473d7df37763a2afdd))
+* validate payload with zod ([01495a2](https://github.com/arakakimath/order-logistics-api/commit/01495a2a3b0e588dd0e1356eb7b7670164c30d5a))
+
+
+### Features
+
+* authenticate use case ([f712fdf](https://github.com/arakakimath/order-logistics-api/commit/f712fdf51a1a30ff1e0dbe98a5d580b8f990d746))
+* authenticate with github controller ([7ef90aa](https://github.com/arakakimath/order-logistics-api/commit/7ef90aa0d684c27de22bb417a9a91d994644b2a5))
+* authenticate with oauth2 use-case ([c27b9d7](https://github.com/arakakimath/order-logistics-api/commit/c27b9d78922bb97c67eb2775b657492c99a22083))
+* github oauth2 vars to env validation schema ([a96de64](https://github.com/arakakimath/order-logistics-api/commit/a96de646cc4e552b8f539ea1472c788784d5ada3))
+* githubUsername property at domain and mongoose ([b90bafb](https://github.com/arakakimath/order-logistics-api/commit/b90bafb4e1d5312842cfe28d1253c1343071a1c0))
+* new methods at delivery people repository ([6f468bf](https://github.com/arakakimath/order-logistics-api/commit/6f468bf697e3eef413eb629e6c7aae8a257d03e3))
+* validate jwt token and build req.user even for public routes ([ed78cb7](https://github.com/arakakimath/order-logistics-api/commit/ed78cb7e0d0e2fbd99ca4f6891334398a7a157da))
+
 # [1.6.0](https://github.com/arakakimath/order-logistics-api/compare/v1.5.0...v1.6.0) (2025-03-05)
 
 
