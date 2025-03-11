@@ -35,7 +35,7 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
     return this.props.githubUsername
   }
 
-  set githubUsername(username: string) {
+  set githubUsername(username: string | undefined) {
     this.props.githubUsername = username
   }
 
