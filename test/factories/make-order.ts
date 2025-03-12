@@ -8,7 +8,7 @@ export function makeOrder(
 ) {
   const order = Order.create(
     {
-      recipientID: faker.string.uuid(),
+      recipientID: new UniqueEntityID(faker.string.uuid()),
       ...override,
     },
     id,
