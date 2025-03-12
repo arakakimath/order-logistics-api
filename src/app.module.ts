@@ -26,6 +26,7 @@ import { CryptoModule } from './infra/cryptography/crypto.module'
         if (process.env.NODE_ENV !== 'test') {
           return envSchema.parse(env)
         }
+        return process.env
       },
       isGlobal: true,
     }),

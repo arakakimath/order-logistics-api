@@ -72,6 +72,8 @@ describe('Update delivery person (e2e)', () => {
         admin: false,
       }),
     )
+
+    if (!userOnDatabase) throw new Error()
     expect(compare('123456', userOnDatabase.password)).toBeTruthy()
   })
 })
