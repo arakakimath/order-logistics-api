@@ -15,7 +15,9 @@ export class InMemoryOrdersRepository implements OrdersRepository {
   }
 
   async delete(order: Order): Promise<void> {
-    throw new Error('Method not implemented.')
+    const index = this.items.findIndex((item) => item.id.equals(order.id))
+
+    this.items.splice(index, 1)
   }
 
   async findByID(id: string): Promise<Order | null> {
