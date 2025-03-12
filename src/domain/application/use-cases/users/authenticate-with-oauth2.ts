@@ -46,6 +46,9 @@ export class AuthenticateWithOAuth2UseCase {
 
       deliveryPerson = await this.deliveryPeopleRepository.findByID(userID)
 
+      if (!deliveryPerson)
+        return left(new MustBeAuthenticatedToLinkOAuthError())
+
       deliveryPerson[usernameProps] = authProviderUsername
 
       await this.deliveryPeopleRepository.save(deliveryPerson)

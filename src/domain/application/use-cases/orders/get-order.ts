@@ -6,7 +6,6 @@ import { User } from '@/core/types/user'
 import { OrderNotFoundError } from '../errors/order-not-found.error'
 import { CourierNOrderDontMatchError } from '../errors/wrong-courier.error'
 import { isUserAdmin } from '../utils/is-user-admin'
-import { MustBeAdminError } from '../errors/must-be-admin.error'
 
 interface GetOrderUseCaseRequest {
   user: User
@@ -14,7 +13,7 @@ interface GetOrderUseCaseRequest {
 }
 
 type GetOrderUseCaseResponse = Either<
-  CourierNOrderDontMatchError | OrderNotFoundError | MustBeAdminError,
+  CourierNOrderDontMatchError | OrderNotFoundError,
   {
     order: Order
   }
