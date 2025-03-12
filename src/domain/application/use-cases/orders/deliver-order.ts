@@ -4,7 +4,7 @@ import { Order } from '@/domain/enterprise/entities/order'
 import { OrdersRepository } from '../../repositories/orders.repository'
 import { User } from '@/core/types/user'
 import { OrderNotFoundError } from '../errors/order-not-found.error'
-import { OrderNotAvailableForDeliveryError } from '../errors/order-not-available-for-delivery.error'
+import { OrderNotAvailableForDeliveryOrReturnError } from '../errors/order-not-available-for-delivery-or-return.error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { CourierNOrderDontMatchError } from '../errors/wrong-courier.error'
 import { InvalidPhotoTypeError } from '../errors/invalid-photo-type.ereror'
@@ -20,7 +20,7 @@ interface DeliverOrderUseCaseRequest {
 
 type DeliverOrderUseCaseResponse = Either<
   | CourierNOrderDontMatchError
-  | OrderNotAvailableForDeliveryError
+  | OrderNotAvailableForDeliveryOrReturnError
   | InvalidPhotoTypeError
   | OrderNotFoundError,
   {
@@ -50,7 +50,7 @@ export class DeliverOrderUseCase {
       return left(new CourierNOrderDontMatchError(orderID))
 
     if (order.status !== 'withdrawn')
-      return left(new OrderNotAvailableForDeliveryError(orderID))
+      return left(new OrderNotAvailableForDeliveryOrReturnError(orderID))
 
     // Photo handling
     if (!/^(image\/(jpeg|png|jpg))/.test(photoType)) {
