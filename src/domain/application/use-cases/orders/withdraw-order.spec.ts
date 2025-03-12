@@ -1,6 +1,7 @@
 import { InMemoryOrdersRepository } from 'test/in-memory-repositories/orders.repository'
 import { WithdrawOrderUseCase } from './withdraw-order'
 import { makeOrder } from 'test/factories/make-order'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 let ordersRepository: InMemoryOrdersRepository
 let sut: WithdrawOrderUseCase
@@ -13,7 +14,7 @@ describe('Withdraw an order', () => {
   })
 
   it('should be able to withdraw an order', async () => {
-    const order = makeOrder({ recipientID: 'recipient-ID' })
+    const order = makeOrder({ recipientID: new UniqueEntityID('recipient-ID') })
 
     ordersRepository.items.push(order)
 
@@ -28,7 +29,9 @@ describe('Withdraw an order', () => {
     expect(result.isRight()).toBeTruthy()
     expect(ordersRepository.items[0]).toEqual(
       expect.objectContaining({
-        recipientID: 'recipient-ID',
+        recipientID: new UniqueEntityID('recipient-ID'),
+        courierID: new UniqueEntityID('some-ID'),
+        status: 'withdrawn',
       }),
     )
   })

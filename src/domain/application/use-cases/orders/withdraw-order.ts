@@ -3,9 +3,10 @@ import { Injectable } from '@nestjs/common'
 import { Order } from '@/domain/enterprise/entities/order'
 import { OrdersRepository } from '../../repositories/orders.repository'
 import { User } from '@/core/types/user'
-import { MustBeAdminError } from '../errors/must-be-admin'
-import { OrderNotFoundError } from '../errors/order-not-found'
-import { isUserAdmin } from '../utils/is-user.admin'
+import { MustBeAdminError } from '../errors/must-be-admin.error'
+import { OrderNotFoundError } from '../errors/order-not-found.error'
+import { OrderNotAvailableForWithdrawError } from '../errors/order-not-available-for-withdraw.error'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 interface WithdrawOrderUseCaseRequest {
   user: User
@@ -27,13 +28,17 @@ export class WithdrawOrderUseCase {
     user,
     orderID,
   }: WithdrawOrderUseCaseRequest): Promise<WithdrawOrderUseCaseResponse> {
-    if (!isUserAdmin(user)) return left(new MustBeAdminError())
-
     const order = await this.ordersRepository.findByID(orderID)
 
     if (!order) return left(new OrderNotFoundError(orderID))
 
+    if (order.status !== 'pending')
+      return left(new OrderNotAvailableForWithdrawError(orderID))
+
     order.status = 'withdrawn'
+    order.courierID = new UniqueEntityID(user.id)
+
+    await this.ordersRepository.save(order)
 
     return right({ order })
   }

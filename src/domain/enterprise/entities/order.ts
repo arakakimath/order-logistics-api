@@ -3,8 +3,8 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
 export interface OrderProps {
-  recipientID: string
-  courierID?: string
+  recipientID: UniqueEntityID
+  courierID?: UniqueEntityID
   status: 'pending' | 'withdrawn' | 'delivered' | 'returned'
   photoUrl?: string
   createdAt: Date
@@ -16,7 +16,7 @@ export class Order extends Entity<OrderProps> {
     return this.props.recipientID
   }
 
-  set recipientID(recipientID: string) {
+  set recipientID(recipientID: UniqueEntityID) {
     this.props.recipientID = recipientID
     this.touch()
   }
@@ -25,7 +25,7 @@ export class Order extends Entity<OrderProps> {
     return this.props.courierID
   }
 
-  set courierID(courierID: string | undefined) {
+  set courierID(courierID: UniqueEntityID | undefined) {
     this.props.courierID = courierID
     this.touch()
   }

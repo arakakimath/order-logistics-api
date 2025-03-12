@@ -3,9 +3,9 @@ import { Injectable } from '@nestjs/common'
 import { Order } from '@/domain/enterprise/entities/order'
 import { OrdersRepository } from '../../repositories/orders.repository'
 import { User } from '@/core/types/user'
-import { MustBeAdminError } from '../errors/must-be-admin'
-import { WrongCredentialsError } from '../errors/wrong-credentials.error'
-import { isUserAdmin } from '../utils/is-user.admin'
+import { MustBeAdminError } from '../errors/must-be-admin.error'
+import { isUserAdmin } from '../utils/is-user-admin'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 interface CreateOrderUseCaseRequest {
   user: User
@@ -30,7 +30,7 @@ export class CreateOrderUseCase {
     if (!isUserAdmin(user)) return left(new MustBeAdminError())
 
     const order = Order.create({
-      recipientID,
+      recipientID: new UniqueEntityID(recipientID),
     })
 
     await this.ordersRepository.create(order)
