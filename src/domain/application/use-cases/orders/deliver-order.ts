@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common'
 import { Order } from '@/domain/enterprise/entities/order'
 import { OrdersRepository } from '../../repositories/orders.repository'
 import { User } from '@/core/types/user'
-import { MustBeAdminError } from '../errors/must-be-admin.error'
 import { OrderNotFoundError } from '../errors/order-not-found.error'
 import { OrderNotAvailableForDeliveryError } from '../errors/order-not-available-for-delivery.error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
@@ -20,7 +19,10 @@ interface DeliverOrderUseCaseRequest {
 }
 
 type DeliverOrderUseCaseResponse = Either<
-  MustBeAdminError | CourierNOrderDontMatchError,
+  | CourierNOrderDontMatchError
+  | OrderNotAvailableForDeliveryError
+  | InvalidPhotoTypeError
+  | OrderNotFoundError,
   {
     order: Order
   }

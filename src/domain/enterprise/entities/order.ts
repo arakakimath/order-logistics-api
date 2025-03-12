@@ -6,6 +6,7 @@ export interface OrderProps {
   recipientID: UniqueEntityID
   courierID?: UniqueEntityID
   status: 'pending' | 'withdrawn' | 'delivered' | 'returned'
+  returnReason?: string
   photoUrl?: string
   createdAt: Date
   updatedAt?: Date
@@ -36,6 +37,15 @@ export class Order extends Entity<OrderProps> {
 
   set status(status: 'pending' | 'withdrawn' | 'delivered' | 'returned') {
     this.props.status = status
+    this.touch()
+  }
+
+  get returnReason() {
+    return this.props.returnReason
+  }
+
+  set returnReason(returnReason: string | undefined) {
+    this.props.returnReason = returnReason
     this.touch()
   }
 

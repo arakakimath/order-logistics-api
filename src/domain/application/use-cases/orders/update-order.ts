@@ -15,6 +15,7 @@ interface UpdateOrderUseCaseRequest {
     recipientID?: string
     courierID?: string
     status?: 'pending' | 'withdrawn' | 'delivered' | 'returned'
+    returnReason?: string
     photoUrl?: string
   }
 }
@@ -36,7 +37,8 @@ export class UpdateOrderUseCase {
   }: UpdateOrderUseCaseRequest): Promise<UpdateOrderUseCaseResponse> {
     if (!isUserAdmin(user)) return left(new MustBeAdminError())
 
-    const { orderID, status, photoUrl, courierID, recipientID } = orderProps
+    const { orderID, status, photoUrl, courierID, recipientID, returnReason } =
+      orderProps
 
     const order = await this.ordersRepository.findByID(orderID)
 
@@ -50,6 +52,7 @@ export class UpdateOrderUseCase {
       : order.recipientID
     order.status = status ?? order.status
     order.photoUrl = photoUrl ?? order.photoUrl
+    order.returnReason = returnReason ?? order.returnReason
 
     await this.ordersRepository.save(order)
 
