@@ -7,34 +7,34 @@ export class User {
     required: true,
     type: String,
   })
-  _id: string
+  _id!: string
 
   @Prop({
     required: true,
   })
-  name: string
+  name!: string
 
   @Prop({
     required: true,
     unique: true,
   })
-  cpf: string
+  cpf!: string
 
   @Prop({
     required: true,
   })
-  password: string
+  password!: string
 
   @Prop({
     required: true,
     default: false,
   })
-  admin: boolean
+  admin!: boolean
 
   @Prop({
     required: false,
   })
-  githubUsername: string
+  githubUsername?: string
 }
 
 export type UserDocument = HydratedDocument<User>

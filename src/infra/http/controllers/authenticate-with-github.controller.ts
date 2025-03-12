@@ -46,6 +46,11 @@ export class AuthenticateWithGitHubController {
     const githubAccessToken =
       await this.gitHubAuthService.exchangeCodeForToken(code)
 
+    if (!githubAccessToken)
+      throw new BadRequestException(
+        'It was not possible to get github access token.',
+      )
+
     const { login } =
       await this.gitHubAuthService.fetchGitHubUser(githubAccessToken)
 
