@@ -1,3 +1,34 @@
+# [1.10.0](https://github.com/arakakimath/order-logistics-api/compare/v1.9.0...v1.10.0) (2025-03-13)
+
+
+### Bug Fixes
+
+* delivery person could not be null to call property ([7b7044f](https://github.com/arakakimath/order-logistics-api/commit/7b7044f928b4ab7b77c660db842a9ed3d09160e8))
+* include undefined ([6a67bbb](https://github.com/arakakimath/order-logistics-api/commit/6a67bbb86e94e88557f25317861dea2d600e7893))
+* typescript errors ([8367ee7](https://github.com/arakakimath/order-logistics-api/commit/8367ee71dee30bd7f750a19dad35cf309e58c5ef))
+* verify if recipient exists ([355f2eb](https://github.com/arakakimath/order-logistics-api/commit/355f2eb6f9260c0650ecaec84526580333b028f1))
+
+
+### Features
+
+* add return reason property to order entity ([d75b92d](https://github.com/arakakimath/order-logistics-api/commit/d75b92d9a0ee5f59b7428e74ae809f68418661a3))
+* create and findByID methods for in memory orders repository ([8d0bb32](https://github.com/arakakimath/order-logistics-api/commit/8d0bb32b35b61b48a95fcb7f9c4ee2fd1d620967))
+* create order controller ([912b160](https://github.com/arakakimath/order-logistics-api/commit/912b160ca0d2dc60b10dc2d42a977f0590b353a7))
+* create order use case ([a59114b](https://github.com/arakakimath/order-logistics-api/commit/a59114be95714ccb451bfee736f642f790030c7c))
+* delete order use case and unit test ([ba9b772](https://github.com/arakakimath/order-logistics-api/commit/ba9b7726e1b64d3420f9e67a86260c97da4a44b2))
+* deliver-order use case and customized errors ([e776103](https://github.com/arakakimath/order-logistics-api/commit/e776103b84add9f5594bce98e33e81c0a4bbee72))
+* get order use case and unit test ([a00cb0f](https://github.com/arakakimath/order-logistics-api/commit/a00cb0f59c8d421c72d6a1c99334d97f04f1bc71))
+* mongoose repositories and mappers ([44ac622](https://github.com/arakakimath/order-logistics-api/commit/44ac622409bac765c2ca754f2c1d2ae0ebaca5a6))
+* mongoose types and schemas ([e6e2ca6](https://github.com/arakakimath/order-logistics-api/commit/e6e2ca6d01e5b700af74809847c266010e5d472f))
+* must be admin and order not found errors ([89f0572](https://github.com/arakakimath/order-logistics-api/commit/89f057290925fe0f5b0e8798107dd33ce7977677))
+* order entity ([645c902](https://github.com/arakakimath/order-logistics-api/commit/645c902c5aed5290b18604ffdbaae90963ba7c62))
+* orders repository interface ([796b04f](https://github.com/arakakimath/order-logistics-api/commit/796b04f64b6931d82c404fb0176ed652c898324b))
+* recipient entity and repository interface ([8bbcda8](https://github.com/arakakimath/order-logistics-api/commit/8bbcda84ceb9a5173d563fd9cfa77699a7132076))
+* return order use case and unit test ([0dd66ce](https://github.com/arakakimath/order-logistics-api/commit/0dd66cec2d8b302c890b402a0c827eb26cd1162d))
+* update order use case and unit test ([6d889d5](https://github.com/arakakimath/order-logistics-api/commit/6d889d5a598d36dd35c4d4228b57b9e5b6dbd3fd))
+* uploader interface ([57f8609](https://github.com/arakakimath/order-logistics-api/commit/57f86092ad58bf24b8ea35196065729af514a092))
+* withdraw order use case ([c59458e](https://github.com/arakakimath/order-logistics-api/commit/c59458ec7d7b8b638eb656e71b2d50b5a5fa6d64))
+
 # [1.9.0](https://github.com/arakakimath/order-logistics-api/compare/v1.8.0...v1.9.0) (2025-03-06)
 
 
