@@ -42,7 +42,7 @@ describe('Register delivery person (e2e)', () => {
 
   test('[POST] /users', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({ admin: true })
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({ admin: true })
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),

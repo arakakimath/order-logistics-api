@@ -39,7 +39,7 @@ describe('Delete delivery person (e2e)', () => {
 
   test('[DELETE] /users/:cpf', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({ admin: true })
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({ admin: true })
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),

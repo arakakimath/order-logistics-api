@@ -36,7 +36,7 @@ describe('Get delivery person (e2e)', () => {
 
   test('[GET] /users/:cpf', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({
         name: 'John Doe',
         admin: true,
       })

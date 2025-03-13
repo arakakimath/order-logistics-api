@@ -37,7 +37,7 @@ describe('Refresh token (e2e)', () => {
 
   test('[POST] /auth', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({
         password: await hash('123456', 8),
       })
 
