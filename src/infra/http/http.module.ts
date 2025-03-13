@@ -18,6 +18,8 @@ import { GetDeliveryPersonUseCase } from '@/domain/application/use-cases/users/g
 import { DeleteDeliveryPersonUseCase } from '@/domain/application/use-cases/users/delete-delivery-person'
 import { GetUserController } from './controllers/users/get-user.controller'
 import { DeleteUserController } from './controllers/users/delete-user.controller'
+import { CreateOrderController } from './controllers/orders/create-order.controller'
+import { CreateOrderUseCase } from '@/domain/application/use-cases/orders/create-order'
 
 @Module({
   imports: [DatabaseModule, CryptoModule, EnvModule, AxiosModule],
@@ -29,8 +31,11 @@ import { DeleteUserController } from './controllers/users/delete-user.controller
     AuthenticateController,
     RefreshTokenController,
     AuthenticateWithGitHubController,
+    // orders
+    CreateOrderController,
   ],
   providers: [
+    // users
     RegisterDeliveryPersonUseCase,
     AuthenticateUseCase,
     RefreshTokenUseCase,
@@ -38,7 +43,9 @@ import { DeleteUserController } from './controllers/users/delete-user.controller
     UpdateDeliveryPersonUseCase,
     GetDeliveryPersonUseCase,
     DeleteDeliveryPersonUseCase,
+    // orders
+    CreateOrderUseCase,
     GitHubAuthService,
   ],
 })
-export class HTTPModule { }
+export class HTTPModule {}

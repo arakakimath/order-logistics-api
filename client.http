@@ -45,3 +45,14 @@ Authorization: Bearer {{ authToken }}
 # @name refresh_token
 GET {{baseUrl}}/auth/refresh
 Content-Type: application/json
+
+###
+
+# @name create_order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{ authToken }}
+
+{
+  "recipientID": "c694a605-f560-4b0a-8973-4c0a971e4e94"
+}
