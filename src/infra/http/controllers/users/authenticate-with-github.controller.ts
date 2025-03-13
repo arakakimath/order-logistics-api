@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
-import { GitHubAuthService } from '../oauth2/github-auth.service'
+import { GitHubAuthService } from '../../oauth2/github-auth.service'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { AuthenticateWithOAuth2UseCase } from '@/domain/application/use-cases/users/authenticate-with-oauth2'
@@ -45,6 +45,11 @@ export class AuthenticateWithGitHubController {
 
     const githubAccessToken =
       await this.gitHubAuthService.exchangeCodeForToken(code)
+
+    if (!githubAccessToken)
+      throw new BadRequestException(
+        'It was not possible to get github access token.',
+      )
 
     const { login } =
       await this.gitHubAuthService.fetchGitHubUser(githubAccessToken)

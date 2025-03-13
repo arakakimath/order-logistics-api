@@ -3,16 +3,14 @@ import { MongooseService } from '@/infra/database/mongoose/mongoose.service'
 import request from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import {
-  DeliveryPersonFactory,
-  makeDeliveryPerson,
-} from 'test/factories/make-delivery-person'
+import { DeliveryPersonFactory } from 'test/factories/make-delivery-person'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
+import { compare } from 'bcryptjs'
 
-describe('Register delivery person (e2e)', () => {
+describe('Update delivery person (e2e)', () => {
   let app: INestApplication
   let mongoose: MongooseService
   let deliveryPersonFactory: DeliveryPersonFactory
@@ -40,27 +38,28 @@ describe('Register delivery person (e2e)', () => {
     await app.init()
   })
 
-  test('[POST] /users', async () => {
+  test('[PUT] /users', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({ admin: true })
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({ admin: true })
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),
       role: deliveryPerson.isAdmin() ? 'admin' : 'regular',
     })
 
-    const { cpf } = makeDeliveryPerson()
+    const { cpf } = deliveryPerson
 
     const response = await request(app.getHttpServer())
-      .post('/users')
+      .put('/users')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         name: 'John Doe',
         cpf,
         password: '123456',
+        admin: false,
       })
 
-    expect(response.statusCode).toBe(201)
+    expect(response.statusCode).toBe(200)
 
     const userOnDatabase = await mongoose.user.findOne({
       cpf,
@@ -69,7 +68,12 @@ describe('Register delivery person (e2e)', () => {
     expect(userOnDatabase).toEqual(
       expect.objectContaining({
         name: 'John Doe',
+        cpf,
+        admin: false,
       }),
     )
+
+    if (!userOnDatabase) throw new Error()
+    expect(compare('123456', userOnDatabase.password)).toBeTruthy()
   })
 })

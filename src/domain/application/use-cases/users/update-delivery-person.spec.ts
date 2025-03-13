@@ -32,8 +32,6 @@ describe('Update Delivery Person', () => {
     })
 
     expect(result.isRight()).toBeTruthy()
-
-    if (result.isLeft()) throw new Error()
     expect(deliveryPeopleRepository.items[0]).toEqual(
       expect.objectContaining({
         name: 'John Doe',

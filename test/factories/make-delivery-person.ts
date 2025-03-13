@@ -46,7 +46,7 @@ export function makeDeliveryPerson(
 export class DeliveryPersonFactory {
   constructor(private mongoose: MongooseService) {}
 
-  async makeMongooseDeliveryStudent(
+  async makeMongooseDeliveryPerson(
     data: Partial<DeliveryPersonProps> = {},
   ): Promise<DeliveryPerson> {
     const deliveryPerson = makeDeliveryPerson(data)

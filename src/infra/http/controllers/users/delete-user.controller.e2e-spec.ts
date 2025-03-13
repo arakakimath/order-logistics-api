@@ -8,9 +8,8 @@ import { ConfigModule } from '@nestjs/config'
 import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
-import { compare } from 'bcryptjs'
 
-describe('Update delivery person (e2e)', () => {
+describe('Delete delivery person (e2e)', () => {
   let app: INestApplication
   let mongoose: MongooseService
   let deliveryPersonFactory: DeliveryPersonFactory
@@ -38,9 +37,9 @@ describe('Update delivery person (e2e)', () => {
     await app.init()
   })
 
-  test('[PUT] /users', async () => {
+  test('[DELETE] /users/:cpf', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({ admin: true })
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({ admin: true })
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),
@@ -50,14 +49,9 @@ describe('Update delivery person (e2e)', () => {
     const { cpf } = deliveryPerson
 
     const response = await request(app.getHttpServer())
-      .put('/users')
+      .del(`/users/${cpf}`)
       .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        name: 'John Doe',
-        cpf,
-        password: '123456',
-        admin: false,
-      })
+      .send()
 
     expect(response.statusCode).toBe(200)
 
@@ -65,13 +59,6 @@ describe('Update delivery person (e2e)', () => {
       cpf,
     })
 
-    expect(userOnDatabase).toEqual(
-      expect.objectContaining({
-        name: 'John Doe',
-        cpf,
-        admin: false,
-      }),
-    )
-    expect(compare('123456', userOnDatabase.password)).toBeTruthy()
+    expect(userOnDatabase).toBeFalsy()
   })
 })

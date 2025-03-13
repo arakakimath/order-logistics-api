@@ -1,5 +1,4 @@
 import { AppModule } from '@/app.module'
-import { MongooseService } from '@/infra/database/mongoose/mongoose.service'
 import request from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
@@ -9,9 +8,8 @@ import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
 
-describe('Delete delivery person (e2e)', () => {
+describe('Get delivery person (e2e)', () => {
   let app: INestApplication
-  let mongoose: MongooseService
   let deliveryPersonFactory: DeliveryPersonFactory
   let jwt: JwtService
 
@@ -30,16 +28,18 @@ describe('Delete delivery person (e2e)', () => {
 
     app = moduleRef.createNestApplication()
 
-    mongoose = moduleRef.get(MongooseService)
     deliveryPersonFactory = moduleRef.get(DeliveryPersonFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[DELETE] /users/:cpf', async () => {
+  test('[GET] /users/:cpf', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({ admin: true })
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({
+        name: 'John Doe',
+        admin: true,
+      })
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),
@@ -49,16 +49,18 @@ describe('Delete delivery person (e2e)', () => {
     const { cpf } = deliveryPerson
 
     const response = await request(app.getHttpServer())
-      .del(`/users/${cpf}`)
+      .get(`/users/${cpf}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
     expect(response.statusCode).toBe(200)
 
-    const userOnDatabase = await mongoose.user.findOne({
-      cpf,
-    })
-
-    expect(userOnDatabase).toBeFalsy()
+    expect(response.body.delivery_person).toEqual(
+      expect.objectContaining({
+        name: 'John Doe',
+        cpf,
+        admin: true,
+      }),
+    )
   })
 })

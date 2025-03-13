@@ -35,7 +35,7 @@ export class MongooseDeliveryPeopleRepository
   }
 
   async findByID(id: string) {
-    const deliveryPerson = await this.mongoose.user.findById({ _id: id })
+    const deliveryPerson = await this.mongoose.user.findById(id)
 
     return deliveryPerson
       ? MongooseDeliveryPersonMapper.toDomain(deliveryPerson)

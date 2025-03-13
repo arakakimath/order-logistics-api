@@ -1,15 +1,20 @@
 import { AppModule } from '@/app.module'
+import { MongooseService } from '@/infra/database/mongoose/mongoose.service'
 import request from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import { DeliveryPersonFactory } from 'test/factories/make-delivery-person'
+import {
+  DeliveryPersonFactory,
+  makeDeliveryPerson,
+} from 'test/factories/make-delivery-person'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
 
-describe('Get delivery person (e2e)', () => {
+describe('Register delivery person (e2e)', () => {
   let app: INestApplication
+  let mongoose: MongooseService
   let deliveryPersonFactory: DeliveryPersonFactory
   let jwt: JwtService
 
@@ -28,38 +33,42 @@ describe('Get delivery person (e2e)', () => {
 
     app = moduleRef.createNestApplication()
 
+    mongoose = moduleRef.get(MongooseService)
     deliveryPersonFactory = moduleRef.get(DeliveryPersonFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[GET] /users/:cpf', async () => {
+  test('[POST] /users', async () => {
     const deliveryPerson =
-      await deliveryPersonFactory.makeMongooseDeliveryStudent({
-        name: 'John Doe',
-        admin: true,
-      })
+      await deliveryPersonFactory.makeMongooseDeliveryPerson({ admin: true })
 
     const accessToken = jwt.sign({
       sub: deliveryPerson.id.toString(),
       role: deliveryPerson.isAdmin() ? 'admin' : 'regular',
     })
 
-    const { cpf } = deliveryPerson
+    const { cpf } = makeDeliveryPerson()
 
     const response = await request(app.getHttpServer())
-      .get(`/users/${cpf}`)
+      .post('/users')
       .set('Authorization', `Bearer ${accessToken}`)
-      .send()
-
-    expect(response.statusCode).toBe(200)
-
-    expect(response.body.delivery_person).toEqual(
-      expect.objectContaining({
+      .send({
         name: 'John Doe',
         cpf,
-        admin: true,
+        password: '123456',
+      })
+
+    expect(response.statusCode).toBe(201)
+
+    const userOnDatabase = await mongoose.user.findOne({
+      cpf,
+    })
+
+    expect(userOnDatabase).toEqual(
+      expect.objectContaining({
+        name: 'John Doe',
       }),
     )
   })
