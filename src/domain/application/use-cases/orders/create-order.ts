@@ -6,6 +6,8 @@ import { User } from '@/core/types/user'
 import { MustBeAdminError } from '../errors/must-be-admin.error'
 import { isUserAdmin } from '../utils/is-user-admin'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { RecipientNotFoundError } from '../errors/recipient-not-found.error'
+import { RecipientsRepository } from '../../repositories/recipients.repository'
 
 interface CreateOrderUseCaseRequest {
   user: User
@@ -13,7 +15,7 @@ interface CreateOrderUseCaseRequest {
 }
 
 type CreateOrderUseCaseResponse = Either<
-  MustBeAdminError,
+  MustBeAdminError | RecipientNotFoundError,
   {
     order: Order
   }
@@ -21,13 +23,20 @@ type CreateOrderUseCaseResponse = Either<
 
 @Injectable()
 export class CreateOrderUseCase {
-  constructor(private ordersRepository: OrdersRepository) {}
+  constructor(
+    private ordersRepository: OrdersRepository,
+    private recipientsRepository: RecipientsRepository,
+  ) {}
 
   async execute({
     user,
     recipientID,
   }: CreateOrderUseCaseRequest): Promise<CreateOrderUseCaseResponse> {
     if (!isUserAdmin(user)) return left(new MustBeAdminError())
+
+    const recipient = await this.recipientsRepository.findByID(recipientID)
+
+    if (!recipient) return left(new RecipientNotFoundError(recipientID))
 
     const order = Order.create({
       recipientID: new UniqueEntityID(recipientID),

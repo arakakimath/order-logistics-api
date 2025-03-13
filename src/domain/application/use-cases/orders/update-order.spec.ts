@@ -2,18 +2,25 @@ import { InMemoryOrdersRepository } from 'test/in-memory-repositories/orders.rep
 import { UpdateOrderUseCase } from './update-order'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { makeOrder } from 'test/factories/make-order'
+import { InMemoryRecipientsRepository } from 'test/in-memory-repositories/recipients.repository'
+import { makeRecipient } from 'test/factories/make-recipient'
 
 let ordersRepository: InMemoryOrdersRepository
+let recipientsRepository: InMemoryRecipientsRepository
 let sut: UpdateOrderUseCase
 
 describe('Update an order', () => {
   beforeEach(() => {
     ordersRepository = new InMemoryOrdersRepository()
+    recipientsRepository = new InMemoryRecipientsRepository()
 
-    sut = new UpdateOrderUseCase(ordersRepository)
+    sut = new UpdateOrderUseCase(ordersRepository, recipientsRepository)
   })
 
   it('should be able to update an order', async () => {
+    const recipient = makeRecipient({}, new UniqueEntityID('recipient-ID'))
+    recipientsRepository.create(recipient)
+
     const order = makeOrder(
       {
         recipientID: new UniqueEntityID('recipient-ID'),

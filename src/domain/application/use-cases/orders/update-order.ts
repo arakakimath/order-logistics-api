@@ -7,6 +7,8 @@ import { MustBeAdminError } from '../errors/must-be-admin.error'
 import { isUserAdmin } from '../utils/is-user-admin'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { OrderNotFoundError } from '../errors/order-not-found.error'
+import { RecipientsRepository } from '../../repositories/recipients.repository'
+import { RecipientNotFoundError } from '../errors/recipient-not-found.error'
 
 interface UpdateOrderUseCaseRequest {
   user: User
@@ -21,7 +23,7 @@ interface UpdateOrderUseCaseRequest {
 }
 
 type UpdateOrderUseCaseResponse = Either<
-  MustBeAdminError | OrderNotFoundError,
+  MustBeAdminError | OrderNotFoundError | RecipientNotFoundError,
   {
     order: Order
   }
@@ -29,7 +31,10 @@ type UpdateOrderUseCaseResponse = Either<
 
 @Injectable()
 export class UpdateOrderUseCase {
-  constructor(private ordersRepository: OrdersRepository) {}
+  constructor(
+    private ordersRepository: OrdersRepository,
+    private recipientsRepository: RecipientsRepository,
+  ) {}
 
   async execute({
     user,
@@ -43,6 +48,12 @@ export class UpdateOrderUseCase {
     const order = await this.ordersRepository.findByID(orderID)
 
     if (!order) return left(new OrderNotFoundError(orderID))
+
+    if (recipientID) {
+      const recipient = await this.recipientsRepository.findByID(recipientID)
+
+      if (!recipient) return left(new RecipientNotFoundError(recipientID))
+    }
 
     order.courierID = courierID
       ? new UniqueEntityID(courierID)
