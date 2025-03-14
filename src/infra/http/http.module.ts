@@ -22,6 +22,8 @@ import { CreateOrderController } from './controllers/orders/create-order.control
 import { CreateOrderUseCase } from '@/domain/application/use-cases/orders/create-order'
 import { UpdateOrderController } from './controllers/orders/update-order.controller'
 import { UpdateOrderUseCase } from '@/domain/application/use-cases/orders/update-order'
+import { WithdrawOrderController } from './controllers/orders/withdraw-order.controller'
+import { WithdrawOrderUseCase } from '@/domain/application/use-cases/orders/withdraw-order'
 
 @Module({
   imports: [DatabaseModule, CryptoModule, EnvModule, AxiosModule],
@@ -36,6 +38,7 @@ import { UpdateOrderUseCase } from '@/domain/application/use-cases/orders/update
     // orders
     CreateOrderController,
     UpdateOrderController,
+    WithdrawOrderController,
   ],
   providers: [
     // users
@@ -49,6 +52,7 @@ import { UpdateOrderUseCase } from '@/domain/application/use-cases/orders/update
     // orders
     CreateOrderUseCase,
     UpdateOrderUseCase,
+    WithdrawOrderUseCase,
     // services
     GitHubAuthService,
   ],
