@@ -9,11 +9,15 @@ import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { randomUUID } from 'node:crypto'
 import { RecipientFactory } from 'test/factories/make-recipient'
+import { OrderFactory } from 'test/factories/make-order'
+import { DeliveryPersonFactory } from 'test/factories/make-delivery-person'
 
-describe('Create Order (e2e)', () => {
+describe('Update Order (e2e)', () => {
   let app: INestApplication
   let mongoose: MongooseService
   let recipientFactory: RecipientFactory
+  let orderFactory: OrderFactory
+  let courierFactory: DeliveryPersonFactory
   let jwt: JwtService
 
   beforeAll(async () => {
@@ -26,20 +30,26 @@ describe('Create Order (e2e)', () => {
           isGlobal: true,
         }),
       ],
-      providers: [RecipientFactory],
+      providers: [RecipientFactory, OrderFactory, DeliveryPersonFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     mongoose = moduleRef.get(MongooseService)
     recipientFactory = moduleRef.get(RecipientFactory)
+    orderFactory = moduleRef.get(OrderFactory)
+    courierFactory = moduleRef.get(DeliveryPersonFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[POST] /orders', async () => {
+  test('[PUT] /orders/:orderID', async () => {
     const recipient = await recipientFactory.makeMongooseRecipient()
+
+    const order = await orderFactory.makeMongooseOrder()
+
+    const courier = await courierFactory.makeMongooseDeliveryPerson()
 
     const accessToken = jwt.sign({
       sub: randomUUID(),
@@ -47,22 +57,28 @@ describe('Create Order (e2e)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .post('/orders')
+      .put(`/orders/${order.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         recipientID: recipient.id.toString(),
+        courierID: courier.id.toString(),
+        status: 'delivered',
+        photoUrl: 'photo-url',
+        returnReason: 'return message',
       })
 
-    expect(response.statusCode).toBe(201)
+    expect(response.statusCode).toBe(200)
 
-    const orderOnDatabase = await mongoose.order.findOne({
-      recipientID: recipient.id.toString(),
-    })
+    const orderOnDatabase = await mongoose.order.findById(order.id.toString())
 
     expect(orderOnDatabase).toEqual(
       expect.objectContaining({
-        _id: expect.any(String),
-        status: 'pending',
+        id: expect.any(String),
+        recipientID: recipient.id.toString(),
+        courierID: courier.id.toString(),
+        status: 'delivered',
+        photoUrl: 'photo-url',
+        returnReason: 'return message',
         createdAt: expect.any(Date),
       }),
     )

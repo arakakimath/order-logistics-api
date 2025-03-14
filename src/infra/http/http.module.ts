@@ -20,6 +20,8 @@ import { GetUserController } from './controllers/users/get-user.controller'
 import { DeleteUserController } from './controllers/users/delete-user.controller'
 import { CreateOrderController } from './controllers/orders/create-order.controller'
 import { CreateOrderUseCase } from '@/domain/application/use-cases/orders/create-order'
+import { UpdateOrderController } from './controllers/orders/update-order.controller'
+import { UpdateOrderUseCase } from '@/domain/application/use-cases/orders/update-order'
 
 @Module({
   imports: [DatabaseModule, CryptoModule, EnvModule, AxiosModule],
@@ -33,6 +35,7 @@ import { CreateOrderUseCase } from '@/domain/application/use-cases/orders/create
     AuthenticateWithGitHubController,
     // orders
     CreateOrderController,
+    UpdateOrderController,
   ],
   providers: [
     // users
@@ -45,6 +48,8 @@ import { CreateOrderUseCase } from '@/domain/application/use-cases/orders/create
     DeleteDeliveryPersonUseCase,
     // orders
     CreateOrderUseCase,
+    UpdateOrderUseCase,
+    // services
     GitHubAuthService,
   ],
 })
