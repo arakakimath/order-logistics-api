@@ -8,9 +8,7 @@ import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { randomUUID } from 'node:crypto'
-import { RecipientFactory } from 'test/factories/make-recipient'
 import { OrderFactory } from 'test/factories/make-order'
-import { DeliveryPersonFactory } from 'test/factories/make-delivery-person'
 
 describe('Withdraw Order (e2e)', () => {
   let app: INestApplication
@@ -28,7 +26,7 @@ describe('Withdraw Order (e2e)', () => {
           isGlobal: true,
         }),
       ],
-      providers: [RecipientFactory, OrderFactory, DeliveryPersonFactory],
+      providers: [OrderFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
