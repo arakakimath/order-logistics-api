@@ -1,3 +1,15 @@
+# [1.12.0](https://github.com/arakakimath/order-logistics-api/compare/v1.11.0...v1.12.0) (2025-03-14)
+
+
+### Bug Fixes
+
+* use case response errors ([2b4ef93](https://github.com/arakakimath/order-logistics-api/commit/2b4ef938eeb276dc3650272a17e0e66f48a20e8f))
+
+
+### Features
+
+* withdraw order controller ([b78734a](https://github.com/arakakimath/order-logistics-api/commit/b78734aebaa9cb88cd982e8d7c3b4878a831ceee))
+
 # [1.11.0](https://github.com/arakakimath/order-logistics-api/compare/v1.10.0...v1.11.0) (2025-03-14)
 
 
