@@ -1,3 +1,15 @@
+# [1.14.0](https://github.com/arakakimath/order-logistics-api/compare/v1.13.0...v1.14.0) (2025-03-14)
+
+
+### Bug Fixes
+
+* more semantic name for comparison const ([a9270aa](https://github.com/arakakimath/order-logistics-api/commit/a9270aa910759926b8f94930476efd0beb52fec6))
+
+
+### Features
+
+* get order controller ([f3e1179](https://github.com/arakakimath/order-logistics-api/commit/f3e117932c97c71a0c75b2680da50a1c71b6d7b3))
+
 # [1.13.0](https://github.com/arakakimath/order-logistics-api/compare/v1.12.0...v1.13.0) (2025-03-14)
 
 
