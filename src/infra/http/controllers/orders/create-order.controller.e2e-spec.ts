@@ -3,7 +3,6 @@ import { MongooseService } from '@/infra/database/mongoose/mongoose.service'
 import request from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import { makeDeliveryPerson } from 'test/factories/make-delivery-person'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
@@ -62,7 +61,7 @@ describe('Create Order (e2e)', () => {
 
     expect(orderOnDatabase).toEqual(
       expect.objectContaining({
-        id: expect.any(String),
+        _id: expect.any(String),
         status: 'pending',
         createdAt: expect.any(Date),
       }),
