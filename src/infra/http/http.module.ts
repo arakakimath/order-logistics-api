@@ -26,6 +26,8 @@ import { WithdrawOrderController } from './controllers/orders/withdraw-order.con
 import { WithdrawOrderUseCase } from '@/domain/application/use-cases/orders/withdraw-order'
 import { ReturnOrderController } from './controllers/orders/return-order.controller'
 import { ReturnOrderUseCase } from '@/domain/application/use-cases/orders/return-order'
+import { GetOrderUseCase } from '@/domain/application/use-cases/orders/get-order'
+import { GetOrderController } from './controllers/orders/get-order.controller'
 
 @Module({
   imports: [DatabaseModule, CryptoModule, EnvModule, AxiosModule],
@@ -42,6 +44,7 @@ import { ReturnOrderUseCase } from '@/domain/application/use-cases/orders/return
     UpdateOrderController,
     WithdrawOrderController,
     ReturnOrderController,
+    GetOrderController,
   ],
   providers: [
     // users
@@ -57,6 +60,7 @@ import { ReturnOrderUseCase } from '@/domain/application/use-cases/orders/return
     UpdateOrderUseCase,
     WithdrawOrderUseCase,
     ReturnOrderUseCase,
+    GetOrderUseCase,
     // services
     GitHubAuthService,
   ],
