@@ -7,12 +7,13 @@ import { ConfigModule } from '@nestjs/config'
 import { envSchema } from '@/infra/env/env'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@/infra/database/database.module'
-import { randomUUID } from 'node:crypto'
 import { OrderFactory } from 'test/factories/make-order'
+import { DeliveryPersonFactory } from 'test/factories/make-delivery-person'
 
-describe('Withdraw Order (e2e)', () => {
+describe('Return Order (e2e)', () => {
   let app: INestApplication
   let mongoose: MongooseService
+  let courierFactory: DeliveryPersonFactory
   let orderFactory: OrderFactory
   let jwt: JwtService
 
@@ -26,30 +27,36 @@ describe('Withdraw Order (e2e)', () => {
           isGlobal: true,
         }),
       ],
-      providers: [OrderFactory],
+      providers: [OrderFactory, DeliveryPersonFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     mongoose = moduleRef.get(MongooseService)
     orderFactory = moduleRef.get(OrderFactory)
+    courierFactory = moduleRef.get(DeliveryPersonFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[PATCH] /orders/:orderID/withdraw', async () => {
-    const order = await orderFactory.makeMongooseOrder()
+  test('[PATCH] /orders/:orderID/return', async () => {
+    const courier = await courierFactory.makeMongooseDeliveryPerson()
+
+    const order = await orderFactory.makeMongooseOrder({
+      courierID: courier.id,
+      status: 'withdrawn',
+    })
 
     const accessToken = jwt.sign({
-      sub: randomUUID(),
+      sub: courier.id.toString(),
       role: 'regular',
     })
 
     const response = await request(app.getHttpServer())
-      .patch(`/orders/${order.id.toString()}/withdraw`)
+      .patch(`/orders/${order.id.toString()}/return`)
       .set('Authorization', `Bearer ${accessToken}`)
-      .send()
+      .send({ returnReason: 'recipient refused to receive package.' })
 
     expect(response.statusCode).toBe(200)
 
@@ -59,8 +66,9 @@ describe('Withdraw Order (e2e)', () => {
       expect.objectContaining({
         _id: expect.any(String),
         recipientID: expect.any(String),
-        courierID: expect.any(String),
-        status: 'withdrawn',
+        courierID: courier.id.toString(),
+        status: 'returned',
+        returnReason: 'recipient refused to receive package.',
         createdAt: expect.any(Date),
       }),
     )
