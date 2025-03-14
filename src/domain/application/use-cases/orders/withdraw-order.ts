@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common'
 import { Order } from '@/domain/enterprise/entities/order'
 import { OrdersRepository } from '../../repositories/orders.repository'
 import { User } from '@/core/types/user'
-import { MustBeAdminError } from '../errors/must-be-admin.error'
 import { OrderNotFoundError } from '../errors/order-not-found.error'
 import { OrderNotAvailableForWithdrawError } from '../errors/order-not-available-for-withdraw.error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
@@ -14,7 +13,7 @@ interface WithdrawOrderUseCaseRequest {
 }
 
 type WithdrawOrderUseCaseResponse = Either<
-  MustBeAdminError,
+  OrderNotAvailableForWithdrawError | OrderNotFoundError,
   {
     order: Order
   }
