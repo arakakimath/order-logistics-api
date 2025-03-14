@@ -31,11 +31,11 @@ export class GetOrderUseCase {
 
     if (!order) return left(new OrderNotFoundError(orderID))
 
-    const isSameCourier = order.courierID
+    const isDifferentCourier = order.courierID
       ? order.courierID.toString() !== user.id
       : false
 
-    if (!isUserAdmin(user) && isSameCourier)
+    if (!isUserAdmin(user) && isDifferentCourier)
       return left(new CourierNOrderDontMatchError(orderID))
 
     return right({ order })
