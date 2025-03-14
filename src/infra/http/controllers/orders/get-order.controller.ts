@@ -3,6 +3,7 @@ import { CourierNOrderDontMatchError } from '@/domain/application/use-cases/erro
 import { GetOrderUseCase } from '@/domain/application/use-cases/orders/get-order'
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
+import { OrderPresenter } from '@/infra/presenters/order.presenter'
 import {
   BadRequestException,
   ConflictException,
@@ -45,5 +46,9 @@ export class GetOrderController {
           throw new BadRequestException(error.message)
       }
     }
+
+    const { order } = result.value
+
+    return OrderPresenter.toHTTP(order)
   }
 }

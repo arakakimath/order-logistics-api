@@ -1,5 +1,4 @@
 @baseUrl = http://localhost:3333
-
 @authToken = {{ authenticate.response.body.access_token }}
 
 # @name authenticate
@@ -54,5 +53,30 @@ Content-Type: application/json
 Authorization: Bearer {{ authToken }}
 
 {
-  "recipientID": "c694a605-f560-4b0a-8973-4c0a971e4e94"
+  "recipientID": "c6946905-f560-4b0a-8973-4c0a971e4e94"
+}
+
+###
+
+# @name withdraw_order
+PATCH {{baseUrl}}/orders/1f668753-2105-4e3f-912e-039cc0265d4d/withdraw
+Content-Type: application/json
+Authorization: Bearer {{ authToken }}
+
+###
+
+# @name get_order
+GET {{baseUrl}}/orders/1f668753-2105-4e3f-912e-039cc0265d4d
+Content-Type: application/json
+Authorization: Bearer {{ authToken }}
+
+###
+
+# @name return_order
+PATCH {{baseUrl}}/orders/1f668753-2105-4e3f-912e-039cc0265d4d/return
+Content-Type: application/json
+Authorization: Bearer {{ authToken }}
+
+{
+  "returnReason": "recipient refused to receive order."
 }
