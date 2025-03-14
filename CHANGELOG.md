@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/arakakimath/order-logistics-api/compare/v1.10.0...v1.11.0) (2025-03-14)
+
+
+### Features
+
+* update order controller ([de00e5d](https://github.com/arakakimath/order-logistics-api/commit/de00e5da5e26ed364b64ae894920982bbcbfe02c))
+
 # [1.10.0](https://github.com/arakakimath/order-logistics-api/compare/v1.9.0...v1.10.0) (2025-03-13)
 
 
